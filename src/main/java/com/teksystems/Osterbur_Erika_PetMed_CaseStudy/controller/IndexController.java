@@ -25,4 +25,12 @@ public class IndexController {
         response.setViewName("index");
         return response;
     }
+
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public ModelAndView home() throws Exception{
+        ModelAndView response = new ModelAndView();
+
+        response.setViewName("home");
+        return response;
+    }
 }
