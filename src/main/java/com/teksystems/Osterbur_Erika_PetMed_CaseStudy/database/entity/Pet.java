@@ -41,7 +41,7 @@ public class Pet {
     private User user;
 
     @OneToMany(mappedBy="pet")
-    private List<VetVisit> vetVisitsList = new ArrayList<>();
+    private List<VetVisit> vetVisitList = new ArrayList<>();
 
 
 }

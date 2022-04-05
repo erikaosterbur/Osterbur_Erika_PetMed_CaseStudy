@@ -4,6 +4,7 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.PetDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.UserDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.VetVisit;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,32 +29,16 @@ public class PetController {
         response.setViewName("pet/petProfile");
 
         Pet pet = petDAO.findById(petId);
+        List<VetVisit> vetVisitList = petDAO.getById(petId);
 
         response.addObject("pet", pet);
+        response.addObject("vetVisitList", vetVisitList);
         return response;
 
     }
 
 
-//    @Autowired
-//    private PetDAO petDAO;
-//    @Autowired
-//    private UserDAO userDAO;
-//
-//    @RequestMapping(value = "/user/{userId}/pets", method = RequestMethod.GET)
-//    public ModelAndView viewPets(@PathVariable("userId") Integer userId) throws Exception {
-//        ModelAndView response = new ModelAndView();
-//        response.setViewName("home");
-//
-//
-//        User user = userDAO.findById(userId);
-//
-//        List<Pet> petList = petDAO.findAllByUser(user);
-//
-//        response.addObject("petList", petList);
-//
-//        return response;
-//    }
+
 
 
 }

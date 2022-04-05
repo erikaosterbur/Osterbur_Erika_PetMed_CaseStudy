@@ -3,12 +3,12 @@
 
 <jsp:include page="../include/header.jsp" />
 
-    <h1>${user.firstName}</h1>
+    <h1>Welcome, ${user.firstName}!</h1>
 
-    <c:forEach var="petList" items="${petList}">
+    <c:forEach var="pet" items="${petList}">
         <ul>
             <li>
-                ${petList.name}
+                ${pet.name}
             </li>
         </ul>
     </c:forEach>
