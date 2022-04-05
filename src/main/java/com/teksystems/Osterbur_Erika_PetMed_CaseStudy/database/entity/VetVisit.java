@@ -21,7 +21,7 @@ public class VetVisit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer vetVisitId;
+    private Integer id;
 
     @Column(name = "date")
     private Date vetVisitDate;

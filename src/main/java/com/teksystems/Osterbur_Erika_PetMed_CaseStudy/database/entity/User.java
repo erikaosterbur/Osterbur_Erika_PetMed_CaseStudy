@@ -3,6 +3,7 @@ package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer userId;
+    private Integer id;
 
     @Column(name = "email")
     private String email;
@@ -39,6 +40,6 @@ public class User {
     private Date createDate;
 
     @OneToMany(mappedBy="user")
-    private List<Pet> petList;
+    private List<Pet> petList = new ArrayList<>();
 
 }

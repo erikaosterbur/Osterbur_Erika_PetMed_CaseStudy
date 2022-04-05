@@ -1,5 +1,6 @@
 package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao;
 
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +19,11 @@ public interface UserDAO extends JpaRepository<User, Long> {
     List<User> findByFirstName(String firstName);
 
     List<User> findByFirstNameAndLastName(String firstName, String lastName);
+
+    @Query(value = "select u.petList from User u where u.id = :id")
+    List<Pet> getById(@Param("id") Integer id);
+
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.controller;
 
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.UserDAO;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.RegisterFormBean;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -31,7 +34,7 @@ public class UserController {
     @RequestMapping(value = "/user/registerSubmit", method = RequestMethod.POST)
     public ModelAndView registerSubmit(RegisterFormBean form) throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("home");
+        response.setViewName("user/home");
 
         User user = userDAO.findById(form.getId());
 
@@ -69,6 +72,21 @@ public class UserController {
         form.setConfirmPassword(user.getPassword());
 
         response.addObject("form", form);
+
+        return response;
+    }
+
+    @GetMapping("/user/{userId}/home")
+    public ModelAndView userHome(@PathVariable("userId") Integer userId) throws Exception {
+        ModelAndView response = new ModelAndView();
+        response.setViewName("user/home");
+
+        User user = userDAO.findById(userId);
+        List<Pet> petList = userDAO.getById(userId);
+
+
+        response.addObject("user", user);
+        response.addObject("petList", petList);
 
         return response;
     }

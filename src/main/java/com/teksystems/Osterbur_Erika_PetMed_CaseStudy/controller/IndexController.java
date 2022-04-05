@@ -15,8 +15,8 @@ import java.util.List;
 @Controller
 public class IndexController {
 
-    @Autowired
-    private UserDAO userDAO;
+//    @Autowired
+//    private UserDAO userDAO;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView index() throws Exception{
@@ -26,11 +26,5 @@ public class IndexController {
         return response;
     }
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView home() throws Exception{
-        ModelAndView response = new ModelAndView();
 
-        response.setViewName("home");
-        return response;
-    }
 }

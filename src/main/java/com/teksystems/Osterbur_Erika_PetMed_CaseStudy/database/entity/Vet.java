@@ -3,6 +3,7 @@ package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -19,17 +20,17 @@ public class Vet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer vetId;
+    private Integer id;
 
     @Column(name = "first_name")
-    private String vetFirstName;
+    private String firstName;
 
     @Column(name = "last_name")
-    private String vetLastName;
+    private String lastName;
 
     @Column(name = "clinic")
     private String clinic;
 
     @OneToMany(mappedBy = "vet")
-    private List<VetVisit> vetVisitList;
+    private List<VetVisit> vetVisitList = new ArrayList<>();
 }
