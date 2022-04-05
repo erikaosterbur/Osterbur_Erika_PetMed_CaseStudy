@@ -24,7 +24,7 @@ public class VetVisit {
     private Integer id;
 
     @Column(name = "date")
-    private Date vetVisitDate;
+    private Date date;
 
     @Column(name = "vaccines")
     private String vaccines;

@@ -22,12 +22,12 @@ public class PetController {
     @Autowired
     private PetDAO petDAO;
 
-    @RequestMapping(value = "/pet", method = RequestMethod.GET)
-    public ModelAndView viewPet() throws Exception {
+    @RequestMapping(value = "/pet/{petId}", method = RequestMethod.GET)
+    public ModelAndView viewPet(@PathVariable("petId") Integer petId) throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("pet/petProfile");
 
-        Pet pet = petDAO.findByName("Ginny");
+        Pet pet = petDAO.findById(petId);
 
         response.addObject("pet", pet);
         return response;

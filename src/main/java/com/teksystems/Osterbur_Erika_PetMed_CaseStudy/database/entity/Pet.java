@@ -27,13 +27,13 @@ public class Pet {
     private String name;
 
     @Column(name = "type")
-    private String petType;
+    private String type;
 
     @Column(name = "breed")
-    private String petBreed;
+    private String breed;
 
     @Column(name = "birthday")
-    private Date petBirthday;
+    private Date birthday;
 
     @ToString.Exclude
     @ManyToOne
