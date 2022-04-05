@@ -31,6 +31,7 @@ public class Vet {
     @Column(name = "clinic")
     private String clinic;
 
-    @OneToMany(mappedBy = "vet")
+    @OneToMany(mappedBy="vet")
     private List<VetVisit> vetVisitList = new ArrayList<>();
+
 }
