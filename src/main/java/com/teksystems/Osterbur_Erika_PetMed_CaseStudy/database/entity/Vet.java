@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -30,6 +31,16 @@ public class Vet {
 
     @Column(name = "clinic")
     private String clinic;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "create_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
 
     @OneToMany(mappedBy="vet")
     private List<VetVisit> vetVisitList = new ArrayList<>();

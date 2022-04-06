@@ -14,10 +14,12 @@ public class RegisterFormBean {
 
 
     private Integer id;
+    private String userType;
     private String email;
     private String firstName;
     private String lastName;
     private String password;
     private String confirmPassword;
+
 
 }

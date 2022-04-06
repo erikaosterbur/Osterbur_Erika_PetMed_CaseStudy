@@ -1,8 +1,11 @@
 package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.controller;
 
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.UserDAO;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.VetDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Vet;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.VetVisit;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.RegisterFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,9 @@ public class UserController {
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private VetDAO vetDAO;
+
     @RequestMapping(value = "/user/register", method = RequestMethod.GET)
     public ModelAndView register() throws Exception {
         ModelAndView response = new ModelAndView();
@@ -34,23 +40,31 @@ public class UserController {
     @RequestMapping(value = "/user/registerSubmit", method = RequestMethod.POST)
     public ModelAndView registerSubmit(RegisterFormBean form) throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("user/home");
-
         User user = userDAO.findById(form.getId());
-
         if(user == null){
             user = new User();
         }
 
+        Vet vet = vetDAO.findById(form.getId());
+        if(vet == null){
+            vet = new Vet();
+        }
 
-        user.setEmail(form.getEmail());
-        user.setFirstName(form.getFirstName());
-        user.setLastName(form.getLastName());
-        user.setPassword(form.getPassword());
-
-        userDAO.save(user);
-
-        response.setViewName("redirect:/user/edit/" + user.getId());
+        if(form.getUserType().equals("user")){
+            user.setEmail(form.getEmail());
+            user.setFirstName(form.getFirstName());
+            user.setLastName(form.getLastName());
+            user.setPassword(form.getPassword());
+            userDAO.save(user);
+            response.setViewName("redirect:/user/{userId}/home");
+        } else if(form.getUserType().equals("vet")){
+            vet.setEmail(form.getEmail());
+            vet.setFirstName(form.getFirstName());
+            vet.setLastName(form.getLastName());
+            vet.setPassword(form.getPassword());
+            vetDAO.save(vet);
+            response.setViewName("redirect:/vet/{vetId}/home");
+        }
 
         return response;
     }
@@ -89,6 +103,21 @@ public class UserController {
         response.addObject("petList", petList);
 
         return response;
+    }
+
+    @GetMapping("/vet/{vetId}/home")
+    public ModelAndView vetHome(@PathVariable("vetId") Integer vetId) throws Exception {
+        ModelAndView response = new ModelAndView();
+        response.setViewName("vet/home");
+
+        Vet vet = vetDAO.findById(vetId);
+        List<VetVisit> vetVisitList = vetDAO.getById(vetId);
+
+        response.addObject("vet", vet);
+        response.addObject("vetVisitList", vetVisitList);
+
+        return response;
+
     }
 
 }

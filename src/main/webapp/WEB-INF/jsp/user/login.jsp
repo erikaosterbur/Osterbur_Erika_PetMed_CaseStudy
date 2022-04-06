@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<jsp:include page="../include/header.jsp" />
+
 <div id="formContainer">
     <div id="formDiv" class="col-4">
         <h2>Already have an account?</h2>
@@ -14,3 +16,7 @@
         </form>
     </div>
 </div>
+
+
+
+<jsp:include page="../include/footer.jsp" />
