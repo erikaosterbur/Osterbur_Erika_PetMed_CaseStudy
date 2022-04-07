@@ -37,37 +37,47 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/user/registerSubmit", method = RequestMethod.POST)
-    public ModelAndView registerSubmit(RegisterFormBean form) throws Exception {
+    @RequestMapping(value = "/user/registerSubmitUser", method = RequestMethod.POST)
+    public ModelAndView registerSubmitUser(RegisterFormBean form) throws Exception {
         ModelAndView response = new ModelAndView();
+
         User user = userDAO.findById(form.getId());
+
         if(user == null){
             user = new User();
         }
 
+        user.setEmail(form.getEmail());
+        user.setFirstName(form.getFirstName());
+        user.setLastName(form.getLastName());
+        user.setPassword(form.getPassword());
+
+        userDAO.save(user);
+
+        response.setViewName("redirect:/user/" + user.getId() + "/home");
+        return response;
+    }
+    @RequestMapping(value = "/user/registerSubmitVet", method = RequestMethod.POST)
+    public ModelAndView registerSubmitVet(RegisterFormBean form) throws Exception {
+
+        ModelAndView response = new ModelAndView();
+
         Vet vet = vetDAO.findById(form.getId());
+
         if(vet == null){
             vet = new Vet();
         }
-
-        if(form.getUserType().equals("user")){
-            user.setEmail(form.getEmail());
-            user.setFirstName(form.getFirstName());
-            user.setLastName(form.getLastName());
-            user.setPassword(form.getPassword());
-            userDAO.save(user);
-            response.setViewName("redirect:/user/{userId}/home");
-        } else if(form.getUserType().equals("vet")){
             vet.setEmail(form.getEmail());
             vet.setFirstName(form.getFirstName());
             vet.setLastName(form.getLastName());
+            vet.setClinic(form.getClinic());
             vet.setPassword(form.getPassword());
             vetDAO.save(vet);
-            response.setViewName("redirect:/vet/{vetId}/home");
-        }
+            response.setViewName("redirect:/vet/" + vet.getId() + "/home");
 
         return response;
     }
+
 
     @GetMapping("/user/edit/{userId}")
     public ModelAndView editUser(@PathVariable("userId") Integer userId) throws Exception {
