@@ -2,105 +2,84 @@
 
 <jsp:include page="../include/header.jsp" />
 
-<%--<div id="formContainer">--%>
-<%--    <div id="formDiv" class="col-4">--%>
-<%--            <ul class="tab-group">--%>
-<%--                <li class="tab active"><a href="#petOwnerRegister">Pet Owner Registration</a></li>--%>
-<%--                <li class="tab"><a href="#vetRegister">Veterinarian Registration</a></li>--%>
-<%--            </ul>--%>
-<%--        <form action="/user/registerSubmit" method="post" id="petOwnerRegister" class="col-12 needs-validation" novalidate>--%>
-<%--            <div class="mb-3">--%>
-<%--                <input type="email" class="form-control form-control-lg" id="userEmailId" name="email" placeholder="email">--%>
-<%--                <div class="invalid-feedback">Please provide a valid email</div>--%>
-<%--            </div>--%>
-<%--            <div class="mb-3">--%>
-<%--                <input type="text" class="form-control form-control-lg" id="userFirstNameId" name="firstName" placeholder="first name" required>--%>
-<%--                <div class="invalid-feedback">Please provide a first name</div>--%>
-<%--            </div>--%>
-<%--            <div class="mb-3">--%>
-<%--                <input type="text" class="form-control form-control-lg" id="userLastNameId" name="lastName" placeholder="last name" required>--%>
-<%--                <div class="invalid-feedback">Please provide a last name</div>--%>
-<%--            </div>--%>
-<%--            <div class="mb-3">--%>
-<%--                <input type="password" class="form-control form-control-lg" id="userPasswordId" name="password" placeholder="password" required>--%>
-<%--                <div class="invalid-feedback">Please provide a password</div>--%>
-<%--            </div>--%>
-<%--            <div class="mb-3">--%>
-<%--                <input onkeyup='check();' type="password" class="form-control form-control-lg" id="userConfirmPasswordId" name="confirmPassword" placeholder="reenter password" required>--%>
-<%--            </div>--%>
-<%--            <div class="col-12 m-4 pt-2" class="message"></div>--%>
-<%--            <button type="submit" class="btn btn-dark">Register</button>--%>
-<%--        </form>--%>
-<%--        <form action="/user/registerSubmit" method="post" id="vetRegister" class="col-12 needs-validation" novalidate>--%>
-<%--            <div class="mb-3">--%>
-<%--                <input type="email" class="form-control form-control-lg" id="vetEmailId" name="email" placeholder="email">--%>
-<%--                <div class="invalid-feedback">Please provide a valid email</div>--%>
-<%--            </div>--%>
-<%--            <div class="mb-3">--%>
-<%--                <input type="text" class="form-control form-control-lg" id="vetFirstNameId" name="firstName" placeholder="first name" required>--%>
-<%--                <div class="invalid-feedback">Please provide a first name</div>--%>
-<%--            </div>--%>
-<%--            <div class="mb-3">--%>
-<%--                <input type="text" class="form-control form-control-lg" id="vetLastNameId" name="lastName" placeholder="last name" required>--%>
-<%--                <div class="invalid-feedback">Please provide a last name</div>--%>
-<%--            </div>--%>
-<%--            <div class="mb-3">--%>
-<%--                <input type="text" class="form-control form-control-lg" id="vetClinicId" name="clinic" placeholder="clinic name" required>--%>
-<%--                <div class="invalid-feedback">Please provide a clinic name</div>--%>
-<%--            </div>--%>
-<%--            <div class="mb-3">--%>
-<%--                <input type="password" class="form-control form-control-lg" id="vetPasswordId" name="password" placeholder="password" required>--%>
-<%--                <div class="invalid-feedback">Please provide a password</div>--%>
-<%--            </div>--%>
-<%--            <div class="mb-3">--%>
-<%--                <input onkeyup='check();' type="password" class="form-control form-control-lg" id="vetConfirmPasswordId" name="confirmPassword" placeholder="reenter password" required>--%>
-<%--            </div>--%>
-<%--            <div class="col-12 m-4 pt-2" class="message"></div>--%>
-<%--            <button type="submit" class="btn btn-dark">Register</button>--%>
-<%--        </form>--%>
-<%--    </div>--%>
-<%--</div>--%>
+<h1>Welcome! Register Your Account Below</h1>
 
-<section class="loginWrapper">
+<div id="formContainer">
 
-    <ul class="tabs">
-        <li class="active">Pet Owner</li>
-        <li>Veterinarian</li>
-    </ul>
+    <div id="formDiv" class="col-4">
 
-    <ul class="tab__content">
+        <section>
 
-        <li class="active">
-            <div class="content__wrapper">
-                <form method="POST" action="/user/registerSubmitUser">
-                    <input type="name" name="firstName" placeholder="First Name">
-                    <input type="name" name="lastName" placeholder="Last Name">
-                    <input type="email" name="email" placeholder="email">
-                    <input type="pass" name="password" placeholder="Password">
-                    <input type="repass" name="confirmPassword" placeholder="Confirm Password">
-                    <input type="submit" value="Register" name="register">
-                </form>
-            </div>
-        </li>
+            <ul class="tabs">
+                <li class="active" id="petOwner">Pet Owner</li>
+                <li id="vet">Veterinarian</li>
+            </ul>
 
-        <li>
-            <div class="content__wrapper">
-                <form method="POST" action="/user/registerSubmitVet">
-                    <input type="name" name="firstName" placeholder="First Name">
-                    <input type="name" name="lastName" placeholder="Last Name">
-                    <input type="email" name="email" placeholder="email">
-                    <input type="name" name="clinic" placeholder="Clinic Name">
-                    <input type="pass" name="password" placeholder="Password">
-                    <input type="repass" name="confirmPassword" placeholder="Confirm Password">
-                    <input type="submit" value="Register" name="register">
-                </form>
-            </div>
-        </li>
+            <ul class="tab__content">
+                <li class="active">
+                    <div class="content__wrapper">
+                        <form action="/user/registerSubmitUser" method="post" id="petOwnerRegister" class="col-12 needs-validation" novalidate>
+                            <div class="mb-3">
+                                <input type="email" class="form-control form-control-lg" id="userEmailId" name="email" placeholder="email">
+                                <div class="invalid-feedback">Please provide a valid email</div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control form-control-lg" id="userFirstNameId" name="firstName" placeholder="first name" required>
+                                <div class="invalid-feedback">Please provide a first name</div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control form-control-lg" id="userLastNameId" name="lastName" placeholder="last name" required>
+                                <div class="invalid-feedback">Please provide a last name</div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="password" class="form-control form-control-lg" id="userPasswordId" name="password" placeholder="password" required>
+                                <div class="invalid-feedback">Please provide a password</div>
+                            </div>
+                            <div class="mb-3">
+                                <input onkeyup='check();' type="password" class="form-control form-control-lg" id="userConfirmPasswordId" name="confirmPassword" placeholder="reenter password" required>
+                            </div>
+                            <div class="col-12 m-4 pt-2" id="message1"></div>
+                            <button type="submit" class="btn btn-dark">Register</button>
+                        </form>
+                    </div>
+                </li>
 
-    </ul>
+                <li>
+                    <div class="content__wrapper">
+                        <form action="/user/registerSubmitVet" method="post" id="vetRegister" class="col-12 needs-validation" style="display: none;" novalidate>
+                            <div class="mb-3">
+                                <input type="email" class="form-control form-control-lg" id="vetEmailId" name="email" placeholder="email">
+                                <div class="invalid-feedback">Please provide a valid email</div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control form-control-lg" id="vetFirstNameId" name="firstName" placeholder="first name" required>
+                                <div class="invalid-feedback">Please provide a first name</div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control form-control-lg" id="vetLastNameId" name="lastName" placeholder="last name" required>
+                                <div class="invalid-feedback">Please provide a last name</div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control form-control-lg" id="vetClinicId" name="clinic" placeholder="clinic name" required>
+                                <div class="invalid-feedback">Please provide a clinic name</div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="password" class="form-control form-control-lg" id="vetPasswordId" name="password" placeholder="password" required>
+                                <div class="invalid-feedback">Please provide a password</div>
+                            </div>
+                            <div class="mb-3">
+                                <input onkeyup='check();' type="password" class="form-control form-control-lg" id="vetConfirmPasswordId" name="confirmPassword" placeholder="reenter password" required>
+                            </div>
+                            <div class="col-12 m-4 pt-2" id="message2"></div>
+                            <button type="submit" class="btn btn-dark">Register</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
 
-</section>
-
-
+<script src="../../../pub/js/register.js"></script>
 <jsp:include page="../include/footer.jsp" />
 
