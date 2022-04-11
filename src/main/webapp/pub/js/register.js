@@ -1,4 +1,13 @@
 $(document).ready(function() {
+    $(".petOwner").click(function(){
+        $("#petOwnerRegister").show();
+        $("#vetRegister").hide();
+    });
+
+    $(".vet").click(function(){
+        $("#petOwnerRegister").hide();
+        $("#vetRegister").css("display","block");
+    });
 
     const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     const passwordRegex = /^(?=.*\d)(?=.*[A-Za-z])([^\s]){8,20}$/;
@@ -92,18 +101,18 @@ $(document).ready(function() {
 let check = function() {
     if (document.getElementById('userPasswordId').value ===
         document.getElementById('userConfirmPasswordId').value) {
-        document.getElementsByClassName('message1').style.color = 'green';
-        document.getElementsByClassName('message1').innerHTML = 'Passwords match!';
+        document.getElementById('message1').style.color = 'green';
+        document.getElementById('message1').innerHTML = 'Passwords match!';
     } else {
-        document.getElementsByClassName('message1').style.color = 'red';
-        document.getElementsByClassName('message1').innerHTML = 'Passwords do not match';
+        document.getElementById('message1').style.color = 'red';
+        document.getElementById('message1').innerHTML = 'Passwords do not match';
     }
     if (document.getElementById('vetPasswordId').value ===
         document.getElementById('vetConfirmPasswordId').value) {
-        document.getElementsByClassName('message2').style.color = 'green';
-        document.getElementsByClassName('message2').innerHTML = 'Passwords match!';
+        document.getElementById('message2').style.color = 'green';
+        document.getElementById('message2').innerHTML = 'Passwords match!';
     } else {
-        document.getElementsByClassName('message2').style.color = 'red';
-        document.getElementsByClassName('message2').innerHTML = 'Passwords do not match';
+        document.getElementById('message2').style.color = 'red';
+        document.getElementById('message2').innerHTML = 'Passwords do not match';
     }
 }

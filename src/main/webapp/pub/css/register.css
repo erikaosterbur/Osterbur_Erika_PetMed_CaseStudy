@@ -1,3 +1,13 @@
+#formContainer{
+    display: flex;
+    justify-content: center;
+    margin: 100px auto;
+}
+#formDiv{
+    background-color: rgba(189, 195, 199, .7);
+    padding: 50px;
+    border-radius: 15px;
+}
 #petOwnerRegister {
     background: rgba(19, 35, 47, 0.82);
     padding: 40px;
@@ -20,13 +30,14 @@
     list-style: none;
     padding: 0;
     margin: 0 0 40px 0;
+    display: flex;
 }
 .tab-group:after {
     content: "";
     display: table;
     clear: both;
 }
-.tab-group li a {
+.tab-group li {
     display: block;
     text-decoration: none;
     padding: 15px;
@@ -40,12 +51,12 @@
     -webkit-transition: .5s ease;
     transition: .5s ease;
 }
-.tab-group li a:hover {
-    background: #FE8256;
+.tab-group li:hover {
+    background: #fc9862;
     color: #ffffff;
 }
-.tab-group .active a {
-    background: #F49476;
+.tab-group .active {
+    background: #bd724a;
     color: #ffffff;
 }
 .tab-content > div:last-child {
