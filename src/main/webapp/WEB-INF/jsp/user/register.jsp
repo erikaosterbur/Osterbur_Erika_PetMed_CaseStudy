@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="../include/header.jsp" />
-
 <h1>Welcome! Register Your Account Below</h1>
 
 <div id="formContainer">
@@ -72,6 +70,5 @@
     </div>
 </div>
 
-<script src="../../../pub/js/register.js"></script>
-<jsp:include page="../include/footer.jsp" />
+
 

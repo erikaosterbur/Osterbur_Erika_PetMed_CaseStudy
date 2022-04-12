@@ -1,3 +1,5 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +22,22 @@
 <%--    <li>--%>
 <%--        <a href="#">Add New Pet</a>--%>
 <%--    </li>--%>
-<%--    <li>--%>
-<%--        <a href="#">Logout</a>--%>
-<%--    </li>--%>
-<%--</ul>--%>
+
+
+<ul>
+    <li>
+        <sec:authorize access="!isAuthenticated()">
+            <a href="#login">Login</a>
+        </sec:authorize>
+    </li>
+    <li>
+        <sec:authorize access="isAuthenticated()">
+            <a href="/login/logout">Logout</a>
+        </sec:authorize>
+    </li>
+</ul>
+
+
 
 
 
