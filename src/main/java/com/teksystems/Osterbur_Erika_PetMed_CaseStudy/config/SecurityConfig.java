@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             //allows a user to access each of these folders
-            .antMatchers("/pub/**", "/error/**", "/login/**", "/index").permitAll()
+            .antMatchers("/pub/**", "/error/**", "/login/**", "/index", "register/**").permitAll()
             //every controller should have its own URL -- like /user/ or /appointment/  //URLs are a protected resource for anyone
             .antMatchers("/admin/**", "/user/**").authenticated()
             .and()

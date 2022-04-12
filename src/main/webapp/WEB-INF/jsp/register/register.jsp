@@ -1,11 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<h1>Welcome! Register Your Account Below</h1>
+
+<jsp:include page="../include/header.jsp" />
 
 <div id="formContainer">
     <div id="formDiv" class="col-4">
+        <h2>Register Your New Account</h2>
             <div class="content__wrapper">
-                <form action="/user/registerSubmitUser" method="post" id="petOwnerRegister" class="col-12 needs-validation" novalidate>
+                <form action="/registerSubmitUser" method="post" id="petOwnerRegister" class="col-12 needs-validation" novalidate>
                     <ul class="tab-group">
                         <li class="petOwner active">Pet Owner</li>
                         <li class="vet">Veterinarian</li>
@@ -35,7 +37,7 @@
             </div>
 
             <div class="content__wrapper">
-                <form action="/user/registerSubmitVet" method="post" id="vetRegister" class="col-12 needs-validation" style="display: none;" novalidate>
+                <form action="/registerSubmitVet" method="post" id="vetRegister" class="col-12 needs-validation" style="display: none;" novalidate>
                     <ul class="tab-group">
                         <li class="petOwner">Pet Owner</li>
                         <li class="active vet">Veterinarian</li>
@@ -72,3 +74,4 @@
 
 
 
+<jsp:include page="../include/footer.jsp" />

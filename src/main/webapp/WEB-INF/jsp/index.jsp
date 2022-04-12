@@ -2,9 +2,6 @@
 
 <jsp:include page="include/header.jsp" />
 
-    <h1>Welcome, ${user.firstName} ${user.lastName}</h1>
-
-
     <div class="headline">
         <h1 class="animate__animated animate__fadeInUp">PetMed</h1>
         <h2 class="animate__animated animate__fadeInDown">take the stress out of managing your pets' medical records</h2>
@@ -23,15 +20,6 @@
     <div class="container">
         <img src="../../pub/images/vet-and-puppy.jpg" alt="veterinarian posing with puppy" class="imgContainer"/>
         <h2 class="textContainer">Keep track of which vets your pet sees</h2>
-    </div>
-
-
-    <div id="login">
-        <jsp:include page="login/loginForm.jsp" />
-    </div>
-
-    <div id="register">
-        <jsp:include page="./user/register.jsp" />
     </div>
 
 

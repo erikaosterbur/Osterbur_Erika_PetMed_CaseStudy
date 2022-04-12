@@ -24,18 +24,28 @@
 <%--    </li>--%>
 
 
-<ul>
-    <li>
-        <sec:authorize access="!isAuthenticated()">
-            <a href="#login">Login</a>
-        </sec:authorize>
-    </li>
-    <li>
-        <sec:authorize access="isAuthenticated()">
-            <a href="/login/logout">Logout</a>
-        </sec:authorize>
-    </li>
-</ul>
+    <ul class="nav justify-content-center">
+        <li>
+            <sec:authorize access="!isAuthenticated()">
+                <a href="/index">PetMed</a>
+            </sec:authorize>
+        </li>
+        <li>
+            <sec:authorize access="!isAuthenticated()">
+                <a href="/login/login">Login</a>
+            </sec:authorize>
+        </li>
+        <li>
+            <sec:authorize access="!isAuthenticated()">
+                <a href="/register">Register</a>
+            </sec:authorize>
+        </li>
+        <li>
+            <sec:authorize access="isAuthenticated()">
+                <a href="/login/logout">Logout</a>
+            </sec:authorize>
+        </li>
+    </ul>
 
 
 

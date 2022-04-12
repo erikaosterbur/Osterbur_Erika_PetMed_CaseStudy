@@ -25,10 +25,10 @@ public class UserController {
     @Autowired
     private VetDAO vetDAO;
 
-    @RequestMapping(value = "/user/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register() throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("user/register");
+        response.setViewName("register/register");
 
         RegisterFormBean form = new RegisterFormBean();
         response.addObject("form", form);
@@ -37,7 +37,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/user/registerSubmitUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/registerSubmitUser", method = RequestMethod.POST)
     public ModelAndView registerSubmitUser(RegisterFormBean form) throws Exception {
         ModelAndView response = new ModelAndView();
 
@@ -57,7 +57,7 @@ public class UserController {
         response.setViewName("redirect:/user/" + user.getId() + "/home");
         return response;
     }
-    @RequestMapping(value = "/user/registerSubmitVet", method = RequestMethod.POST)
+    @RequestMapping(value = "/registerSubmitVet", method = RequestMethod.POST)
     public ModelAndView registerSubmitVet(RegisterFormBean form) throws Exception {
 
         ModelAndView response = new ModelAndView();
