@@ -33,6 +33,7 @@ public class Pet {
     private String breed;
 
     @Column(name = "birthday")
+    @Temporal(TemporalType.DATE)
     private Date birthday;
 
     @ToString.Exclude

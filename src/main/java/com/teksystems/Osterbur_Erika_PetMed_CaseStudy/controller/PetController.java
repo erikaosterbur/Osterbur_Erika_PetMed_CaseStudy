@@ -6,11 +6,9 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.VetVisit;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.PetFormBean;
-import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.RegisterFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,13 +55,14 @@ public class PetController {
     }
 
     @RequestMapping(value = "/pet/registerSubmitPet", method = RequestMethod.POST)
-    public ModelAndView registerSubmitUser(PetFormBean form) throws Exception {
+    public ModelAndView registerSubmitPet(PetFormBean form) throws Exception {
         ModelAndView response = new ModelAndView();
 
         Pet pet = new Pet();
         User user = userDAO.findById(form.getUserId());
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date birthday = formatter.format(form.getBirthday());
+        Date birthday = formatter.parse(form.getBirthday());
 
         pet.setName(form.getName());
         pet.setType(form.getType());
