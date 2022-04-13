@@ -21,7 +21,7 @@
             <input type="text" name="weight" placeholder="Weight" class="form-control form-control-lg mb-3">
             <select class="form-select mb-3" id="addVetSelect" name="vetId">
                 <option selected>Which vet did your animal see?</option>
-                <!-- Iterates over each pet to populate the dropdown  -->
+                <!-- Iterates over each vet to populate the dropdown  -->
                 <c:forEach items="${vets}" var="vet">
                     <option value="${vet.id}" name="vetId">${vet.firstName} ${vet.lastName}</option>
                 </c:forEach>

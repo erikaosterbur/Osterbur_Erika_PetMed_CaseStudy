@@ -1,13 +1,14 @@
 <jsp:include page="../include/header.jsp" />
 
-<h1>Create a New Pet Profile</h1>
+<h1>Pet Profile</h1>
 
 <div id="formContainer">
     <div id="formDiv" class="col-4">
         <form action="/pet/registerSubmitPet" method="post">
-            <input type="text" name="name" placeholder="Enter pet's name" class="form-control form-control-lg mb-3">
+            <input type="hidden" name="id" value="${form.id}">
+            <input type="text" name="name" placeholder="Enter pet's name" class="form-control form-control-lg mb-3" value="${form.name}">
             <select class="form-select mb-3" id="addPetTypeSelect" name="type">
-                <option selected>Type...</option>
+                <option selected value="${form.type}">Type...</option>
                 <option value="Dog" name="Dog">Dog</option>
                 <option value="Cat" name="Cat">Cat</option>
                 <option value="Rabbit" name="Rabbit">Rabbit</option>
@@ -27,9 +28,9 @@
                 <option value="Fish" name="Fish">Fish</option>
                 <option value="Other" name="Other">Other</option>
             </select>
-            <input type="text" name="breed" placeholder="Enter pet breed" class="form-control form-control-lg mb-3">
-            <input type="date" name="birthday" placeholder="Enter pet birthday" class="form-control form-control-lg mb-3">
-            <button type="submit" class="btn btn-dark">Save New Pet</button>
+            <input type="text" name="breed" placeholder="Enter pet breed" class="form-control form-control-lg mb-3" value="${form.breed}">
+            <input type="date" name="birthday" placeholder="Enter pet birthday" class="form-control form-control-lg mb-3" value="${form.birthday}">
+            <button type="submit" class="btn btn-dark">Save Pet</button>
         </form>
     </div>
 </div>
