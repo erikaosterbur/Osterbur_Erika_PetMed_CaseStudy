@@ -2,14 +2,19 @@ package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.controller;
 
 
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.PetDAO;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.UserDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.VetDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.VetVisitDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Vet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.VetVisit;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.VetVisitFormBean;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +39,9 @@ public class VetVisitController {
     @Autowired
     private VetDAO vetDAO;
 
+    @Autowired
+    private UserDAO userDAO;
+
     @RequestMapping(value = "/vetvisit/{vetVisitId}", method = RequestMethod.GET)
     public ModelAndView viewVetVisit(@PathVariable("vetVisitId") Integer vetVisitId) throws Exception {
         ModelAndView response = new ModelAndView();
@@ -57,6 +65,15 @@ public class VetVisitController {
         VetVisitFormBean form = new VetVisitFormBean();
         response.addObject("form", form);
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        if(!StringUtils.equals("anonymousUser", currentPrincipalName)){
+            User user = userDAO.findByEmail(currentPrincipalName);
+            List<Pet> pets = petDAO.findAllByUserId(user.getId());
+            log.info(String.valueOf(pets));
+            response.addObject("pets", pets);
+        }
         return response;
     }
 
