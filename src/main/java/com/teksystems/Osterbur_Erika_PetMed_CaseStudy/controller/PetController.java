@@ -80,7 +80,7 @@ public class PetController {
             petDAO.save(pet);
 
 
-            response.setViewName("redirect:/user/" + user.getId() + "/home");
+            response.setViewName("redirect:/user/home" + user.getId());
 
         }
 

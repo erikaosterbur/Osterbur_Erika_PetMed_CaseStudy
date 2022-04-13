@@ -72,27 +72,6 @@ public class UserController {
         response.setViewName("redirect:/user/home/" + user.getId());
         return response;
     }
-//    @RequestMapping(value = "/registerSubmitVet", method = RequestMethod.POST)
-//    public ModelAndView registerSubmitVet(RegisterFormBean form) throws Exception {
-//
-//        ModelAndView response = new ModelAndView();
-//
-//        Vet vet = vetDAO.findById(form.getId());
-//
-//        if(vet == null){
-//            vet = new Vet();
-//        }
-//            vet.setEmail(form.getEmail());
-//            vet.setFirstName(form.getFirstName());
-//            vet.setLastName(form.getLastName());
-//            vet.setClinic(form.getClinic());
-//            vet.setPassword(form.getPassword());
-//            vetDAO.save(vet);
-//            response.setViewName("redirect:/vet/" + vet.getId() + "/home");
-//
-//        return response;
-//    }
-
 
     @GetMapping("/user/edit/{userId}")
     public ModelAndView editUser(@PathVariable("userId") Integer userId) throws Exception {
@@ -143,20 +122,5 @@ public class UserController {
 
         return response;
     }
-
-//    @GetMapping("/vet/{vetId}/home")
-//    public ModelAndView vetHome(@PathVariable("vetId") Integer vetId) throws Exception {
-//        ModelAndView response = new ModelAndView();
-//        response.setViewName("vet/home");
-//
-//        Vet vet = vetDAO.findById(vetId);
-//        List<VetVisit> vetVisitList = vetDAO.getById(vetId);
-//
-//        response.addObject("vet", vet);
-//        response.addObject("vetVisitList", vetVisitList);
-//
-//        return response;
-//
-//    }
 
 }

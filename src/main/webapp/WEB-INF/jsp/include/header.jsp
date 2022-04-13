@@ -47,6 +47,16 @@
         </li>
         <li>
             <sec:authorize access="isAuthenticated()">
+                <a href="/pet/register">Add New Pet</a>
+            </sec:authorize>
+        </li>
+        <li>
+            <sec:authorize access="isAuthenticated()">
+                <a href="/vetVisit/register">Add New Vet Visit</a>
+            </sec:authorize>
+        </li>
+        <li>
+            <sec:authorize access="isAuthenticated()">
                 <a href="/login/logout">Logout</a>
             </sec:authorize>
         </li>

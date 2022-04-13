@@ -30,7 +30,7 @@ public class LoginController {
         if(!StringUtils.equals("anonymousUser", currentPrincipalName)){
             User user = userDAO.findByEmail(currentPrincipalName);
             response.addObject(user);
-            response.setViewName("redirect:/user/" + user.getId() + "/home");
+            response.setViewName("redirect:/user/home/" + user.getId());
         }
 
         return response;
