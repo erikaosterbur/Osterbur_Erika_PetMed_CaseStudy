@@ -42,6 +42,11 @@
         </li>
         <li>
             <sec:authorize access="isAuthenticated()">
+                <a href="/user/home">Home</a>
+            </sec:authorize>
+        </li>
+        <li>
+            <sec:authorize access="isAuthenticated()">
                 <a href="/login/logout">Logout</a>
             </sec:authorize>
         </li>

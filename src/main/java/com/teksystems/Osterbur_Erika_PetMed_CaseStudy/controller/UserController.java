@@ -6,7 +6,10 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.VetDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.*;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.RegisterFormBean;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -66,7 +69,7 @@ public class UserController {
 
         userRoleDAO.save(userRole);
 
-        response.setViewName("redirect:/user/" + user.getId() + "/home");
+        response.setViewName("redirect:/user/home/" + user.getId());
         return response;
     }
 //    @RequestMapping(value = "/registerSubmitVet", method = RequestMethod.POST)
@@ -112,8 +115,22 @@ public class UserController {
         return response;
     }
 
-    @GetMapping("/user/{userId}/home")
-    public ModelAndView userHome(@PathVariable("userId") Integer userId) throws Exception {
+    @GetMapping("/user/home")
+    public ModelAndView userHome() throws Exception {
+        ModelAndView response = new ModelAndView();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        if(!StringUtils.equals("anonymousUser", currentPrincipalName)){
+            User user = userDAO.findByEmail(currentPrincipalName);
+            response.addObject("user", user);
+            response.setViewName("redirect:/user/home/" + user.getId());
+        }
+        return response;
+    }
+
+    @GetMapping("/user/home/{userId}")
+    public ModelAndView userHomePage(@PathVariable("userId") Integer userId) throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("user/home");
 
