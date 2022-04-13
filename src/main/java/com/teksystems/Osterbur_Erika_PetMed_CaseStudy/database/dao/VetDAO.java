@@ -16,6 +16,8 @@ public interface VetDAO extends JpaRepository<Vet, Long> {
 
     Vet findById(@Param("id") Integer id);
 
+    List<Vet> findAll();
+
     @Query(value = "select v.vetVisitList from Vet v where v.id = :id")
     List<VetVisit> getById(@Param("id") Integer id);
 

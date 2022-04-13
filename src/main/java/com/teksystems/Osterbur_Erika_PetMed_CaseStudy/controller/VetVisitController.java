@@ -71,9 +71,12 @@ public class VetVisitController {
         if(!StringUtils.equals("anonymousUser", currentPrincipalName)){
             User user = userDAO.findByEmail(currentPrincipalName);
             List<Pet> pets = petDAO.findAllByUserId(user.getId());
-            log.info(String.valueOf(pets));
             response.addObject("pets", pets);
         }
+
+        List<Vet> vets = vetDAO.findAll();
+        response.addObject("vets", vets);
+
         return response;
     }
 
