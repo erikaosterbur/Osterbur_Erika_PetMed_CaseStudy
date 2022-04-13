@@ -1,14 +1,13 @@
 package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.controller;
 
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.UserDAO;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.UserRoleDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.VetDAO;
-import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
-import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
-import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Vet;
-import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.VetVisit;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.*;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.RegisterFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,6 +23,12 @@ public class UserController {
 
     @Autowired
     private VetDAO vetDAO;
+
+    @Autowired
+    private UserRoleDAO userRoleDAO;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register() throws Exception {
@@ -50,33 +55,40 @@ public class UserController {
         user.setEmail(form.getEmail());
         user.setFirstName(form.getFirstName());
         user.setLastName(form.getLastName());
-        user.setPassword(form.getPassword());
+        String password = passwordEncoder.encode(form.getPassword());
+        user.setPassword(password);
 
         userDAO.save(user);
+
+        UserRole userRole = new UserRole();
+        userRole.setUserId(user.getId());
+        userRole.setUserRole("USER");
+
+        userRoleDAO.save(userRole);
 
         response.setViewName("redirect:/user/" + user.getId() + "/home");
         return response;
     }
-    @RequestMapping(value = "/registerSubmitVet", method = RequestMethod.POST)
-    public ModelAndView registerSubmitVet(RegisterFormBean form) throws Exception {
-
-        ModelAndView response = new ModelAndView();
-
-        Vet vet = vetDAO.findById(form.getId());
-
-        if(vet == null){
-            vet = new Vet();
-        }
-            vet.setEmail(form.getEmail());
-            vet.setFirstName(form.getFirstName());
-            vet.setLastName(form.getLastName());
-            vet.setClinic(form.getClinic());
-            vet.setPassword(form.getPassword());
-            vetDAO.save(vet);
-            response.setViewName("redirect:/vet/" + vet.getId() + "/home");
-
-        return response;
-    }
+//    @RequestMapping(value = "/registerSubmitVet", method = RequestMethod.POST)
+//    public ModelAndView registerSubmitVet(RegisterFormBean form) throws Exception {
+//
+//        ModelAndView response = new ModelAndView();
+//
+//        Vet vet = vetDAO.findById(form.getId());
+//
+//        if(vet == null){
+//            vet = new Vet();
+//        }
+//            vet.setEmail(form.getEmail());
+//            vet.setFirstName(form.getFirstName());
+//            vet.setLastName(form.getLastName());
+//            vet.setClinic(form.getClinic());
+//            vet.setPassword(form.getPassword());
+//            vetDAO.save(vet);
+//            response.setViewName("redirect:/vet/" + vet.getId() + "/home");
+//
+//        return response;
+//    }
 
 
     @GetMapping("/user/edit/{userId}")
@@ -115,19 +127,19 @@ public class UserController {
         return response;
     }
 
-    @GetMapping("/vet/{vetId}/home")
-    public ModelAndView vetHome(@PathVariable("vetId") Integer vetId) throws Exception {
-        ModelAndView response = new ModelAndView();
-        response.setViewName("vet/home");
-
-        Vet vet = vetDAO.findById(vetId);
-        List<VetVisit> vetVisitList = vetDAO.getById(vetId);
-
-        response.addObject("vet", vet);
-        response.addObject("vetVisitList", vetVisitList);
-
-        return response;
-
-    }
+//    @GetMapping("/vet/{vetId}/home")
+//    public ModelAndView vetHome(@PathVariable("vetId") Integer vetId) throws Exception {
+//        ModelAndView response = new ModelAndView();
+//        response.setViewName("vet/home");
+//
+//        Vet vet = vetDAO.findById(vetId);
+//        List<VetVisit> vetVisitList = vetDAO.getById(vetId);
+//
+//        response.addObject("vet", vet);
+//        response.addObject("vetVisitList", vetVisitList);
+//
+//        return response;
+//
+//    }
 
 }

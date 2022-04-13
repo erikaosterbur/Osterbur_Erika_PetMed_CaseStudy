@@ -7,7 +7,10 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.VetVisit;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.PetFormBean;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,22 +61,29 @@ public class PetController {
     public ModelAndView registerSubmitPet(PetFormBean form) throws Exception {
         ModelAndView response = new ModelAndView();
 
-        Pet pet = new Pet();
-        User user = userDAO.findById(form.getUserId());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date birthday = formatter.parse(form.getBirthday());
+        if(!StringUtils.equals("anonymousUser", currentPrincipalName)){
+            User user = userDAO.findByEmail(currentPrincipalName);
+            Pet pet = new Pet();
 
-        pet.setName(form.getName());
-        pet.setType(form.getType());
-        pet.setBreed(form.getBreed());
-        pet.setBirthday(birthday);
-        pet.setUser(user);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date birthday = formatter.parse(form.getBirthday());
 
-        petDAO.save(pet);
+            pet.setName(form.getName());
+            pet.setType(form.getType());
+            pet.setBreed(form.getBreed());
+            pet.setBirthday(birthday);
+            pet.setUser(user);
+
+            petDAO.save(pet);
 
 
-        response.setViewName("redirect:/user/" + user.getId() + "/home");
+            response.setViewName("redirect:/user/" + user.getId() + "/home");
+
+        }
+
         return response;
     }
 
