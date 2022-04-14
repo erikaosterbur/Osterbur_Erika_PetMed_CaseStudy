@@ -16,4 +16,6 @@
             </li>
         </ul>
     </c:forEach>
+
+
 <jsp:include page="../include/footer.jsp" />
