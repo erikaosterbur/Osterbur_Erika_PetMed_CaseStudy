@@ -1,6 +1,12 @@
 <jsp:include page="../include/header.jsp" />
 
-<h1>Pet Profile</h1>
+<c:if test="${empty form.id}">
+    <h1>Create New Pet Profile</h1>
+</c:if>
+
+<c:if test="${not empty form.id}">
+    <h1>Edit Pet Profile</h1>
+</c:if>
 
 <div id="formContainer">
     <div id="formDiv" class="col-4">
@@ -8,7 +14,12 @@
             <input type="hidden" name="id" value="${form.id}">
             <input type="text" name="name" placeholder="Enter pet's name" class="form-control form-control-lg mb-3" value="${form.name}">
             <select class="form-select mb-3" id="addPetTypeSelect" name="type">
-                <option selected value="${form.type}">Type...</option>
+                <c:if test="${empty form.id}">
+                    <option selected>Type...</option>
+                </c:if>
+                <c:if test="${not empty form.id}">
+                    <option selected value="${form.type}">${form.type}</option>
+                </c:if>
                 <option value="Dog" name="Dog">Dog</option>
                 <option value="Cat" name="Cat">Cat</option>
                 <option value="Rabbit" name="Rabbit">Rabbit</option>

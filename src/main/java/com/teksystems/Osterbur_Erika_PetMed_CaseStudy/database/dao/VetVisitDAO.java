@@ -1,5 +1,6 @@
 package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao;
 
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Vet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.VetVisit;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +16,7 @@ public interface VetVisitDAO extends JpaRepository<VetVisit, Long> {
 
     @Query(value = "select v.vet from VetVisit v where v.id = :id")
     Vet getById(@Param("id") Integer id);
+
 
 
 

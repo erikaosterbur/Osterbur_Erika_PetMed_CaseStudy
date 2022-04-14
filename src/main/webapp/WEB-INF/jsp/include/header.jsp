@@ -52,7 +52,7 @@
         </li>
         <li>
             <sec:authorize access="isAuthenticated()">
-                <a href="/vetVisit/register">Add New Vet Visit</a>
+                <a href="/vetvisit/register">Add New Vet Visit</a>
             </sec:authorize>
         </li>
         <li>
