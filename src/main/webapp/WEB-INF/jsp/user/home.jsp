@@ -3,7 +3,17 @@
 
 <jsp:include page="../include/header.jsp" />
 
-    <h1>Welcome, ${user.firstName}!</h1>
+    <style>
+        h3 a{
+            color: black;
+            text-decoration: none;
+        }
+        h3 a:hover{
+            color: #bd724a;
+        }
+    </style>
+
+    <h1 style="color: rgb(255, 255, 255); margin: 50px" class="d-flex justify-content-center">Welcome, ${user.firstName}!</h1>
 
     <div id="petDiv" class="d-flex justify-content-center m-5">
         <c:forEach var="pet" items="${petList}">
@@ -63,7 +73,7 @@
                     <c:if test="${pet.type == 'Other'}">
                         <img src="../../../pub/images/other.jpg" class="card-img-top" alt="photo of many pets together">
                     </c:if>
-                    <h3 class="card-title p-2" style="text-align: center"><a href="/pet/${pet.id}" style="color: black">${pet.name}</a></h3>
+                    <h3 class="card-title p-2" style="text-align: center"><a href="/pet/${pet.id}">${pet.name}</a></h3>
                     <table class="table table-striped">
                         <tbody>
                         <tr>

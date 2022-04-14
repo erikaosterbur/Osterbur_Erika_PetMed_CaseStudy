@@ -13,7 +13,7 @@ ul {
 li {
     margin: 0 2rem;
 }
-a {
+li a {
     color: white;
     font-size: 2em;
     display: block;
@@ -21,10 +21,10 @@ a {
     padding: 0.2em 0;
     text-decoration: none;
 }
-a:hover{
+li a:hover{
     color: white;
 }
-a::after {
+li a::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -35,8 +35,8 @@ a::after {
     opacity: 0;
     transition: opacity 300ms, transform 300ms;
 }
-a:hover::after,
-a:focus::after {
+li a:hover::after,
+li a:focus::after {
     opacity: 1;
     transform: translate3d(0, 0.2em, 0);
 }

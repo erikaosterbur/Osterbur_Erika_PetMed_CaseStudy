@@ -15,16 +15,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <body>
-<%--<ul class="nav justify-content-center">--%>
-<%--    <li>--%>
-<%--        <a href="#">Home</a>--%>
-<%--    </li>--%>
-<%--    <li>--%>
-<%--        <a href="#">Add New Pet</a>--%>
-<%--    </li>--%>
-
-
-    <ul class="nav justify-content-center">
+    <ul class="nav justify-content-left">
         <li>
             <sec:authorize access="!isAuthenticated()">
                 <a href="/index">PetMed</a>
@@ -47,12 +38,12 @@
         </li>
         <li>
             <sec:authorize access="isAuthenticated()">
-                <a href="/pet/register">Add New Pet</a>
+                <a href="/pet/register">New Pet</a>
             </sec:authorize>
         </li>
         <li>
             <sec:authorize access="isAuthenticated()">
-                <a href="/vetvisit/register">Add New Vet Visit</a>
+                <a href="/vetvisit/register">New Vet Visit</a>
             </sec:authorize>
         </li>
         <li>
