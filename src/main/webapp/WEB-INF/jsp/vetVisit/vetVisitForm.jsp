@@ -3,7 +3,13 @@
 
 <jsp:include page="../include/header.jsp" />
 
-<h1>Create a New Vet Visit</h1>
+<c:if test="${empty form.id}">
+    <h1>Create New Vet Visit</h1>
+</c:if>
+
+<c:if test="${not empty form.id}">
+    <h1>Edit Vet Visit</h1>
+</c:if>
 
 <div id="formContainer">
     <div id="formDiv" class="col-4">
