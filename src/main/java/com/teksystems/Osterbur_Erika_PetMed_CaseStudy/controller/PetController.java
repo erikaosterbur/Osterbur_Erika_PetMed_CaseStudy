@@ -41,6 +41,10 @@ public class PetController {
         Pet pet = petDAO.findById(petId);
         List<VetVisit> vetVisitList = petDAO.getById(petId);
 
+        vetVisitList.sort((o1, o2)
+                -> o2.getDate().compareTo(
+                o1.getDate()));
+
         response.addObject("pet", pet);
         response.addObject("vetVisitList", vetVisitList);
         return response;

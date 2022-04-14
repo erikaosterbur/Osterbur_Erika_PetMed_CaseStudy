@@ -134,6 +134,9 @@ public class UserController {
         VetFormBean form = new VetFormBean();
         response.addObject("form", form);
 
+        List<Vet> vets = vetDAO.findAll();
+
+        response.addObject("vets", vets);
         return response;
     }
 
