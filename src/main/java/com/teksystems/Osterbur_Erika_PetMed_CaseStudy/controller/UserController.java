@@ -5,9 +5,11 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.UserRoleDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.VetDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.*;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.RegisterFormBean;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.VetFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -120,6 +122,35 @@ public class UserController {
         response.addObject("user", user);
         response.addObject("petList", petList);
 
+        return response;
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/admin")
+    public ModelAndView admin() throws Exception {
+        ModelAndView response = new ModelAndView();
+        response.setViewName("admin/admin");
+
+        VetFormBean form = new VetFormBean();
+        response.addObject("form", form);
+
+        return response;
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @RequestMapping(value = "admin/vetRegisterSubmit", method = RequestMethod.POST)
+    public ModelAndView registerSubmitVet(VetFormBean form) throws Exception {
+        ModelAndView response = new ModelAndView();
+
+        Vet vet = new Vet();
+
+        vet.setFirstName(form.getFirstName());
+        vet.setLastName(form.getLastName());
+        vet.setClinic(form.getClinic());
+
+        vetDAO.save(vet);
+
+        response.setViewName("redirect:/admin");
         return response;
     }
 

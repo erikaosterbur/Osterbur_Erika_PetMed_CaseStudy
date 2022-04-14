@@ -1,13 +1,4 @@
 $(document).ready(function() {
-    $(".petOwner").click(function(){
-        $("#petOwnerRegister").show();
-        $("#vetRegister").hide();
-    });
-
-    $(".vet").click(function(){
-        $("#petOwnerRegister").hide();
-        $("#vetRegister").css("display","block");
-    });
 
     const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     const passwordRegex = /^(?=.*\d)(?=.*[A-Za-z])([^\s]){8,20}$/;
@@ -23,7 +14,7 @@ $(document).ready(function() {
             userPasswordId === userConfirmPasswordId
         )
         {
-            alert("Success!");
+            console.log("Success!");
         } else if(!emailRegex.test(userEmailId)){
             alert("Not a valid email!");
         } else if(!passwordRegex.test(userPasswordId)){
@@ -32,28 +23,6 @@ $(document).ready(function() {
             alert("Passwords do not match");
         }
     });
-
-    $('#vetRegister').on("submit", function(event){
-        let vetEmailId = $('#vetEmailId').val();
-        let vetPasswordId = $('#vetPasswordId').val();
-        let vetConfirmPasswordId = $('#vetConfirmPasswordId').val();
-
-        if(
-            emailRegex.test(vetEmailId) &&
-            passwordRegex.test(vetPasswordId) &&
-            vetPasswordId === vetConfirmPasswordId
-        )
-        {
-            alert("Success!");
-        } else if(!emailRegex.test(vetEmailId)){
-            alert("Not a valid email!");
-        } else if(!passwordRegex.test(vetPasswordId)){
-            alert("Password must contain at least one letter, one number, and be between 8 and 20 characters");
-        } else if(vetPasswordId !== vetConfirmPasswordId){
-            alert("Passwords do not match");
-        }
-    });
-
 });
 
 // Disabling form submissions if there are invalid fields
@@ -77,42 +46,14 @@ $(document).ready(function() {
         })
 })();
 
-// Disabling form submissions if there are invalid fields
-(function () {
-    'use strict'
-
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    let form2 = document.getElementById('vetRegister')
-
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(form2)
-        .forEach(function (form) {
-            form2.addEventListener('submit', function (event) {
-                if (!form2.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
-
-                form2.classList.add('was-validated')
-            }, false)
-        })
-})();
 
 let check = function() {
     if (document.getElementById('userPasswordId').value ===
         document.getElementById('userConfirmPasswordId').value) {
-        document.getElementById('message1').style.color = 'green';
-        document.getElementById('message1').innerHTML = 'Passwords match!';
+        document.getElementById('message').style.color = 'green';
+        document.getElementById('message').innerHTML = 'Passwords match!';
     } else {
-        document.getElementById('message1').style.color = 'red';
-        document.getElementById('message1').innerHTML = 'Passwords do not match';
-    }
-    if (document.getElementById('vetPasswordId').value ===
-        document.getElementById('vetConfirmPasswordId').value) {
-        document.getElementById('message2').style.color = 'green';
-        document.getElementById('message2').innerHTML = 'Passwords match!';
-    } else {
-        document.getElementById('message2').style.color = 'red';
-        document.getElementById('message2').innerHTML = 'Passwords do not match';
+        document.getElementById('message').style.color = 'red';
+        document.getElementById('message').innerHTML = 'Passwords do not match';
     }
 }

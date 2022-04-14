@@ -41,13 +41,6 @@ public class PetController {
         Pet pet = petDAO.findById(petId);
         List<VetVisit> vetVisitList = petDAO.getById(petId);
 
-//        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
-//        for(VetVisit vetVisit : vetVisitList){
-//            Date date = formatter.parse(vetVisit.getDate().toString());
-//            vetVisit.setDate(date);
-//
-//        }
-
         response.addObject("pet", pet);
         response.addObject("vetVisitList", vetVisitList);
         return response;

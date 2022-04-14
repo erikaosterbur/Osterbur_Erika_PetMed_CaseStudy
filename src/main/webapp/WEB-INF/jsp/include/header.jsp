@@ -47,6 +47,11 @@
             </sec:authorize>
         </li>
         <li>
+            <sec:authorize access="hasAuthority('ADMIN')">
+                <a href="/admin">New Vet</a>
+            </sec:authorize>
+        </li>
+        <li>
             <sec:authorize access="isAuthenticated()">
                 <a href="/login/logout">Logout</a>
             </sec:authorize>

@@ -14,6 +14,9 @@
         text-align: center;
         margin: 10px;
     }
+    h4{
+        font-size: 35px;
+    }
     button a{
         text-decoration: none;
         color: white;
@@ -32,9 +35,12 @@
     <div class="card m-5" style="width: 40rem;">
         <div class="card-body">
             <div class="m-5">
-                <h4 class="card-title p-2" style="text-align: center">Date : <fmt:formatDate value ="${vetVisit.date}" pattern="MM/dd/yyyy"/></h4>
                 <table class="table table-striped">
                     <tbody>
+                    <tr>
+                        <th>Date:</th>
+                        <td><fmt:formatDate value ="${vetVisit.date}" pattern="MM/dd/yyyy"/></td>
+                    </tr>
                         <tr>
                             <th>Notes:</th>
                             <td>${vetVisit.notes}</td>
@@ -55,6 +61,10 @@
                         <tr>
                             <th>Vet seen:</th>
                             <td>${vetVisit.vet.firstName} ${vetVisit.vet.lastName}</td>
+                        </tr>
+                        <tr>
+                            <th>Clinic:</th>
+                            <td>${vetVisit.vet.clinic}</td>
                         </tr>
                     </tbody>
                 </table>

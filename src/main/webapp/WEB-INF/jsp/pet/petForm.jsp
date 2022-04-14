@@ -51,7 +51,9 @@
             </select>
             <input type="text" name="breed" placeholder="Enter pet breed" class="form-control form-control-lg mb-3" value="${form.breed}">
             <input type="date" name="birthday" placeholder="Enter pet birthday" class="form-control form-control-lg mb-3" value="${form.birthday}">
-            <button type="submit" class="btn btn-dark">Save Pet</button>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-dark">Save Pet</button>
+            </div>
         </form>
     </div>
 </div>

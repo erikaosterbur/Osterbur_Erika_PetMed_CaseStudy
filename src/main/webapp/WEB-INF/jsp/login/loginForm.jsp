@@ -12,7 +12,9 @@
             <div class="mb-3">
                 <input type="password" class="form-control form-control-lg" id="passwordInput" placeholder="password" name="password">
             </div>
-            <button type="submit" class="btn btn-dark">Login</button>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-dark">Login</button>
+            </div>
         </form>
     </div>
 </div>

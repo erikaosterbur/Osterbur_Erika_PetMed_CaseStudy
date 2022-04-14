@@ -103,39 +103,50 @@
             <button class="btn btn-dark m-3"><a href="/pet/edit/${pet.id}">Edit Pet Info</a></button>
         </div>
     </div>
-
+<div class="d-flex justify-content-center">
     <c:forEach var="vetVisit" items="${vetVisitList}">
-        <div class="card m-5" style="width: 25rem;">
-            <div class="card-body">
-                <h4 class="card-title p-2" style="text-align: center"><a href="/vetvisit/${vetVisit.id}">Vet Visit : <fmt:formatDate value ="${vetVisit.date}" pattern="MM/dd/yyyy"/></a></h4>
-                <table class="table table-striped">
-                    <tbody>
-                    <tr>
-                        <th>&#128221;</th>
-                        <td>${vetVisit.notes}</td>
-                    </tr>
-                    <tr>
-                        <th>&#128137;</th>
-                        <td>${vetVisit.vaccines}</td>
-                    </tr>
-                    <tr>
-                        <th>&#9878;&#65039;</th>
-                        <c:if test="${vetVisit.weight == null}">
-                            <td>NA</td>
-                        </c:if>
-                        <c:if test="${vetVisit.weight != null}">
-                            <td>${vetVisit.weight} lbs</td>
-                        </c:if>
-                    </tr>
-                    <tr>
-                        <th>&#128105;&#8205;&#9877;&#65039</th>
-                        <td>${vetVisit.vet.firstName} ${vetVisit.vet.lastName}</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="card m-5" style="width: 25rem;">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>&#128197;</th>
+                            <td><fmt:formatDate value ="${vetVisit.date}" pattern="MM/dd/yyyy"/></td>
+                        </tr>
+                        <tr>
+                            <th>&#128221;</th>
+                            <td>${vetVisit.notes}</td>
+                        </tr>
+                        <tr>
+                            <th>&#128137;</th>
+                            <td>${vetVisit.vaccines}</td>
+                        </tr>
+                        <tr>
+                            <th>&#9878;&#65039;</th>
+                            <c:if test="${vetVisit.weight == null}">
+                                <td>NA</td>
+                            </c:if>
+                            <c:if test="${vetVisit.weight != null}">
+                                <td>${vetVisit.weight} lbs</td>
+                            </c:if>
+                        </tr>
+                        <tr>
+                            <th>&#128105;&#8205;&#9877;&#65039</th>
+                            <td>${vetVisit.vet.firstName} ${vetVisit.vet.lastName}</td>
+                        </tr>
+                        <tr>
+                            <th>&#127973;</th>
+                            <td>${vetVisit.vet.clinic}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-dark m-3"><a href="/vetvisit/edit/${vetVisit.id}">Edit Vet Visit</a></button>
+                    </div>
+                </div>
             </div>
-        </div>
     </c:forEach>
+</div>
 
 
 <jsp:include page="../include/footer.jsp" />
