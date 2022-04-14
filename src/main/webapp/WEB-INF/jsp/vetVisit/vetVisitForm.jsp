@@ -3,6 +3,14 @@
 
 <jsp:include page="../include/header.jsp" />
 
+<style>
+    h1{
+        color: white;
+        text-align: center;
+        margin: 30px;
+    }
+</style>
+
 <c:if test="${empty form.id}">
     <h1>Create New Vet Visit</h1>
 </c:if>
@@ -30,7 +38,7 @@
             <input type="date" name="date" placeholder="Date" class="form-control form-control-lg mb-3" value="${form.date}">
             <input type="text" name="vaccines" placeholder="Vaccines" class="form-control form-control-lg mb-3" value="${form.vaccines}">
             <input type="text" name="notes" placeholder="Notes" class="form-control form-control-lg mb-3" value="${form.notes}">
-            <input type="text" name="weight" placeholder="Weight" class="form-control form-control-lg mb-3" value="${form.weight}">
+            <input type="text" name="weight" placeholder="Weight in lbs" class="form-control form-control-lg mb-3" value="${form.weight}">
             <select class="form-select mb-3" id="addVetSelect" name="vetId">
                 <c:if test="${empty form.id}">
                     <option selected>Which vet did your animal see?</option>

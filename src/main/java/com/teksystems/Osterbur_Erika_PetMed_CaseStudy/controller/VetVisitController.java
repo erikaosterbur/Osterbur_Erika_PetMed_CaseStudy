@@ -51,7 +51,6 @@ public class VetVisitController {
         VetVisit vetVisit = vetVisitDAO.findById(vetVisitId);
         Vet vet = vetVisitDAO.getById(vetVisitId);
 
-
         response.addObject("vetVisit", vetVisit);
         response.addObject("vet", vet);
         return response;

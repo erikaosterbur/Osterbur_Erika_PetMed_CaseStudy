@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="../include/header.jsp" />
 
@@ -15,12 +16,26 @@
         max-width: 30%;
         border: 10px solid white;
     }
+    button a{
+        text-decoration: none;
+        color: white;
+    }
+    button a:hover{
+        color: #bd724a;
+    }
     h4 a{
         color: black;
         text-decoration: none;
     }
     h4 a:hover{
         color: #bd724a;
+    }
+    th{
+        font-size: 40px;
+        text-align:center;
+    }
+    td{
+        font-size: 20px;
     }
 </style>
 <div class="d-flex justify-content-center m-5">
@@ -83,25 +98,28 @@
         <h1>Name: ${pet.name}</h1>
         <h3>Type: ${pet.type}</h3>
         <h3>Breed: ${pet.breed}</h3>
-        <h3>Birthday: ${pet.birthday}</h3>
+        <h3>Birthday: <fmt:formatDate value ="${pet.birthday}" pattern="MM/dd/yyyy"/></h3>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-dark m-3"><a href="/pet/edit/${pet.id}">Edit Pet Info</a></button>
+        </div>
     </div>
 
     <c:forEach var="vetVisit" items="${vetVisitList}">
         <div class="card m-5" style="width: 25rem;">
             <div class="card-body">
-                <h4 class="card-title p-2" style="text-align: center"><a href="/vetvisit/${vetVisit.id}">Vet Visit : ${vetVisit.date}</a></h4>
+                <h4 class="card-title p-2" style="text-align: center"><a href="/vetvisit/${vetVisit.id}">Vet Visit : <fmt:formatDate value ="${vetVisit.date}" pattern="MM/dd/yyyy"/></a></h4>
                 <table class="table table-striped">
                     <tbody>
                     <tr>
-                        <th>Notes:</th>
+                        <th>&#128221;</th>
                         <td>${vetVisit.notes}</td>
                     </tr>
                     <tr>
-                        <th>Vaccines:</th>
+                        <th>&#128137;</th>
                         <td>${vetVisit.vaccines}</td>
                     </tr>
                     <tr>
-                        <th>Weight:</th>
+                        <th>&#9878;&#65039;</th>
                         <c:if test="${vetVisit.weight == null}">
                             <td>NA</td>
                         </c:if>
@@ -110,7 +128,7 @@
                         </c:if>
                     </tr>
                     <tr>
-                        <th>Vet Name:</th>
+                        <th>&#128105;&#8205;&#9877;&#65039</th>
                         <td>${vetVisit.vet.firstName} ${vetVisit.vet.lastName}</td>
                     </tr>
                     </tbody>
