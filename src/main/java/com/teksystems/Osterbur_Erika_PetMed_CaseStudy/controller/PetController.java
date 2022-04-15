@@ -6,12 +6,9 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.VetVisit;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.PetFormBean;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.security.AuthenticationFacade;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +28,9 @@ public class PetController {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private AuthenticationFacade authentication;
 
 
     @RequestMapping(value = "/pet/{petId}", method = RequestMethod.GET)
@@ -66,12 +66,10 @@ public class PetController {
     public ModelAndView registerSubmitPet(PetFormBean form) throws Exception {
         ModelAndView response = new ModelAndView();
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
+        String username = authentication.getAuthentication();
+        User user = userDAO.findByEmail(username);
 
-        if(!StringUtils.equals("anonymousUser", currentPrincipalName)){
-            User user = userDAO.findByEmail(currentPrincipalName);
-
+        if(user != null){
             Pet pet = petDAO.findById(form.getId());
             if(pet == null){
                 pet = new Pet();
@@ -90,7 +88,6 @@ public class PetController {
 
 
             response.setViewName("redirect:/user/home/" + user.getId());
-
         }
 
         return response;

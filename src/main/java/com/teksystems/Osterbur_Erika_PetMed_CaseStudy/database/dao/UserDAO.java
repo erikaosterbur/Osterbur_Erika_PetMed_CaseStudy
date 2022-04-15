@@ -24,5 +24,4 @@ public interface UserDAO extends JpaRepository<User, Long> {
     List<Pet> getById(@Param("id") Integer id);
 
 
-
 }

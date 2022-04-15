@@ -2,11 +2,9 @@ package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.controller;
 
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.UserDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.security.AuthenticationFacade;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,18 +17,21 @@ public class LoginController {
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private AuthenticationFacade authentication;
+
     @RequestMapping(value="/login/login", method = RequestMethod.GET)
     public ModelAndView login() throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("login/loginForm");
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
+        String username = authentication.getAuthentication();
+        User user = userDAO.findByEmail(username);
 
-        if(!StringUtils.equals("anonymousUser", currentPrincipalName)){
-            User user = userDAO.findByEmail(currentPrincipalName);
+        if(user!=null){
             response.addObject(user);
-            response.setViewName("redirect:/user/home/" + user.getId());
+
+            response.setViewName("redirect:/user/home/");
         }
 
         return response;

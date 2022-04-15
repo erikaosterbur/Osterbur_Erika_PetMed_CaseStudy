@@ -39,17 +39,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         List<UserRole> userRoles = userRoleDao.findByUserId(user.getId());
         // check the account status
-//        boolean accountIsEnabled = false;
-
-//        accountIsEnabled = user.isActive();
+//
         // spring security configs
         boolean accountIsEnabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
         // setup user roles
-        // List<Permission> permissions = userDao.getPermissionsByEmail(username);
-        // Collection<? extends GrantedAuthority> springRoles = buildGrantAuthorities(permissions);
         Collection<? extends GrantedAuthority> springRoles = buildGrantAuthorities(userRoles);
 
         String password = user.getPassword();
@@ -66,4 +62,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return authorities;
 
     }
+
+
 }

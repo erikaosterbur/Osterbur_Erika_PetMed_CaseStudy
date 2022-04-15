@@ -6,12 +6,10 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.VetDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.*;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.RegisterFormBean;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.VetFormBean;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.security.AuthenticationFacade;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +32,9 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationFacade authentication;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register() throws Exception {
@@ -99,14 +100,15 @@ public class UserController {
     @GetMapping("/user/home")
     public ModelAndView userHome() throws Exception {
         ModelAndView response = new ModelAndView();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
 
-        if(!StringUtils.equals("anonymousUser", currentPrincipalName)){
-            User user = userDAO.findByEmail(currentPrincipalName);
+        String username = authentication.getAuthentication();
+        User user = userDAO.findByEmail(username);
+
+        if(user != null){
             response.addObject("user", user);
             response.setViewName("redirect:/user/home/" + user.getId());
         }
+
         return response;
     }
 

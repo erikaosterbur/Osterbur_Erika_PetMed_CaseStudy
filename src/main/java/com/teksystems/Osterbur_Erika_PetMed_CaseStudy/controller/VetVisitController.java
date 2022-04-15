@@ -1,6 +1,5 @@
 package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.controller;
 
-
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.PetDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.UserDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.VetDAO;
@@ -9,13 +8,10 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Vet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.VetVisit;
-import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.PetFormBean;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.VetVisitFormBean;
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.security.AuthenticationFacade;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +37,9 @@ public class VetVisitController {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private AuthenticationFacade authentication;
 
     @RequestMapping(value = "/vetvisit/{vetVisitId}", method = RequestMethod.GET)
     public ModelAndView viewVetVisit(@PathVariable("vetVisitId") Integer vetVisitId) throws Exception {
@@ -65,18 +63,16 @@ public class VetVisitController {
         VetVisitFormBean form = new VetVisitFormBean();
         response.addObject("form", form);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
+        String username = authentication.getAuthentication();
+        User user = userDAO.findByEmail(username);
 
-        if(!StringUtils.equals("anonymousUser", currentPrincipalName)){
-            User user = userDAO.findByEmail(currentPrincipalName);
+        if(user != null){
             List<Pet> pets = petDAO.findAllByUserId(user.getId());
             response.addObject("pets", pets);
+
+            List<Vet> vets = vetDAO.findAll();
+            response.addObject("vets", vets);
         }
-
-        List<Vet> vets = vetDAO.findAll();
-        response.addObject("vets", vets);
-
         return response;
     }
 
@@ -117,32 +113,31 @@ public class VetVisitController {
 
         VetVisitFormBean form = new VetVisitFormBean();
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
+        String username = authentication.getAuthentication();
+        User user = userDAO.findByEmail(username);
 
-        if(!StringUtils.equals("anonymousUser", currentPrincipalName)){
-            User user = userDAO.findByEmail(currentPrincipalName);
+        if(user != null){
             List<Pet> pets = petDAO.findAllByUserId(user.getId());
             response.addObject("pets", pets);
+
+
+            form.setId(vetVisit.getId());
+            form.setDate(vetVisit.getDate().toString());
+            form.setVaccines(vetVisit.getVaccines());
+            form.setNotes(vetVisit.getNotes());
+            form.setWeight(vetVisit.getWeight());
+            form.setVetId(vetVisit.getVet().getId());
+
+            List<Vet> vets = vetDAO.findAll();
+            response.addObject("vets", vets);
+
+            Pet pet = vetVisit.getPet();
+            Vet vet = vetVisit.getVet();
+
+            response.addObject("pet", pet);
+            response.addObject("vet", vet);
+            response.addObject("form", form);
         }
-
-        form.setId(vetVisit.getId());
-        form.setDate(vetVisit.getDate().toString());
-        form.setVaccines(vetVisit.getVaccines());
-        form.setNotes(vetVisit.getNotes());
-        form.setWeight(vetVisit.getWeight());
-        form.setVetId(vetVisit.getVet().getId());
-
-        List<Vet> vets = vetDAO.findAll();
-        response.addObject("vets", vets);
-
-        Pet pet = vetVisit.getPet();
-        Vet vet = vetVisit.getVet();
-
-        response.addObject("pet", pet);
-        response.addObject("vet", vet);
-        response.addObject("form", form);
-
         return response;
 
     }
