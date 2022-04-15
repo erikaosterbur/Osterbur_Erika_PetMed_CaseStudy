@@ -4,6 +4,10 @@
 <jsp:include page="../include/header.jsp" />
 
     <style>
+        h2, h3{
+            color: white;
+            text-align: center;
+        }
         h3 a{
             color: black;
             text-decoration: none;
@@ -11,9 +15,23 @@
         h3 a:hover{
             color: #bd724a;
         }
+        #uhohkitty{
+            max-width:35%;
+            border: 10px solid white;
+        }
     </style>
 
     <h1 style="color: rgb(255, 255, 255); margin: 50px" class="d-flex justify-content-center">Welcome, ${user.firstName}!</h1>
+
+    <c:if test="${empty petList}">
+        <div>
+            <div class="d-flex justify-content-center m-5">
+                <img id="uhohkitty" src="../../../pub/images/uhohkitty.jpg" alt="kitten on the couch">
+            </div>
+            <h2>Uh oh! No pets yet!</h2>
+            <h3>Add a new pet to get started</h3>
+        </div>
+    </c:if>
 
     <div id="petDiv" class="d-flex justify-content-center flex-wrap m-5">
         <c:forEach var="pet" items="${petList}">
