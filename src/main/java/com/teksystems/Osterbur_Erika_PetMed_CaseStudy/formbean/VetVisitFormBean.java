@@ -13,7 +13,7 @@ public class VetVisitFormBean {
     private String date;
     private String vaccines;
     private String notes;
-    private Integer weight;
+    private Float weight;
     private Integer petId;
     private Integer vetId;
 

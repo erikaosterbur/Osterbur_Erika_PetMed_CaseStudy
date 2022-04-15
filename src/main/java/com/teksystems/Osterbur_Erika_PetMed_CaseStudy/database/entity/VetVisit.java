@@ -35,7 +35,7 @@ public class VetVisit {
     private String notes;
 
     @Column(name = "weight")
-    private Integer weight;
+    private Float weight;
 
     @ToString.Exclude
     @ManyToOne

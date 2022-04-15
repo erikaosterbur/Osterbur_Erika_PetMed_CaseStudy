@@ -35,20 +35,21 @@
                     <option value="${pet.id}" name="petId">${pet.name}</option>
                 </c:forEach>
             </select>
-            <input type="date" name="date" placeholder="Date" class="form-control form-control-lg mb-3" value="${form.date}">
+            <label for="date">Date of Visit</label>
+            <input id="date" type="date" name="date" placeholder="Date" class="form-control form-control-lg mb-3" value="${form.date}">
             <input type="text" name="vaccines" placeholder="Vaccines" class="form-control form-control-lg mb-3" value="${form.vaccines}">
             <input type="text" name="notes" placeholder="Notes" class="form-control form-control-lg mb-3" value="${form.notes}">
             <input type="text" name="weight" placeholder="Weight in lbs" class="form-control form-control-lg mb-3" value="${form.weight}">
             <select class="form-select mb-3" id="addVetSelect" name="vetId">
                 <c:if test="${empty form.id}">
-                    <option selected>Which vet did your animal see?</option>
+                    <option selected>Which vet did your pet see?</option>
                 </c:if>
                 <c:if test="${not empty form.id}">
                     <option selected value="${vet.id}">${vet.firstName} ${vet.lastName}</option>
                 </c:if>
                 <!-- Iterates over each vet to populate the dropdown  -->
                 <c:forEach items="${vets}" var="vet">
-                    <option value="${vet.id}" name="vetId">${vet.firstName} ${vet.lastName}</option>
+                    <option value="${vet.id}" name="vetId">${vet.firstName} ${vet.lastName} - ${vet.clinic}</option>
                 </c:forEach>
             </select>
 
