@@ -159,4 +159,14 @@ public class UserController {
         return response;
     }
 
+//    @PreAuthorize("hasAuthority('ADMIN')")
+//    @DeleteMapping (value = "admin/vetDelete/{vetId}")
+//    public Vet deleteVet(@PathVariable("vetId") Integer vetId) throws Exception {
+
+    //Do a delete if vet is not associated with vet visit
+//
+//        return vetDAO.deleteById(vetId);
+//
+//    }
+
 }

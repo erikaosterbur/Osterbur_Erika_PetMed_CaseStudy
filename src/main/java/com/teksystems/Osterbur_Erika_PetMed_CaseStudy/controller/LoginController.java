@@ -23,7 +23,7 @@ public class LoginController {
     @RequestMapping(value="/login/login", method = RequestMethod.GET)
     public ModelAndView login() throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("login/loginForm");
+        response.setViewName("login/login_form");
 
         String username = authentication.getAuthentication();
         User user = userDAO.findByEmail(username);

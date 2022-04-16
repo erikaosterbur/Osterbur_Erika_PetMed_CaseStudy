@@ -21,7 +21,7 @@
 
 <div id="formContainer">
     <div id="formDiv" class="col-4">
-        <form action="/vetvisit/registerSubmitVetVisit" method="post">
+        <form action="/vetVisit/registerSubmitVetVisit" method="post">
             <input type="hidden" name="id" value="${form.id}">
             <select class="form-select mb-3" id="addPetSelect" name="petId">
                 <c:if test="${empty form.id}">

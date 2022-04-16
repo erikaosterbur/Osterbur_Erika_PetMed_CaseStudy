@@ -19,5 +19,4 @@ public interface VetVisitDAO extends JpaRepository<VetVisit, Long> {
 
 
 
-
 }

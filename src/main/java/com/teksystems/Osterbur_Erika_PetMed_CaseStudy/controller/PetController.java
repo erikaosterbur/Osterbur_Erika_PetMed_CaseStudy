@@ -36,7 +36,7 @@ public class PetController {
     @RequestMapping(value = "/pet/{petId}", method = RequestMethod.GET)
     public ModelAndView viewPet(@PathVariable("petId") Integer petId) throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("pet/petProfile");
+        response.setViewName("pet/pet_profile");
 
         Pet pet = petDAO.findById(petId);
         List<VetVisit> vetVisitList = petDAO.getById(petId);
@@ -54,7 +54,7 @@ public class PetController {
     @RequestMapping(value = "/pet/register", method = RequestMethod.GET)
     public ModelAndView register() throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("pet/petForm");
+        response.setViewName("pet/pet_form");
 
         PetFormBean form = new PetFormBean();
         response.addObject("form", form);
@@ -96,7 +96,7 @@ public class PetController {
     @RequestMapping(value="/pet/edit/{petId}", method = RequestMethod.GET)
     public ModelAndView editPet(@PathVariable("petId") Integer petId) throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("pet/petForm");
+        response.setViewName("pet/pet_form");
 
         Pet pet = petDAO.findById(petId);
 

@@ -41,10 +41,10 @@ public class VetVisitController {
     @Autowired
     private AuthenticationFacade authentication;
 
-    @RequestMapping(value = "/vetvisit/{vetVisitId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/vetVisit/{vetVisitId}", method = RequestMethod.GET)
     public ModelAndView viewVetVisit(@PathVariable("vetVisitId") Integer vetVisitId) throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("vetVisit/vetVisitProfile");
+        response.setViewName("vetVisit/vet_visit_profile");
 
         VetVisit vetVisit = vetVisitDAO.findById(vetVisitId);
         Vet vet = vetVisitDAO.getById(vetVisitId);
@@ -55,10 +55,10 @@ public class VetVisitController {
 
     }
 
-    @RequestMapping(value = "/vetvisit/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/vetVisit/register", method = RequestMethod.GET)
     public ModelAndView newVetVisit() throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("vetVisit/vetVisitForm");
+        response.setViewName("vetVisit/vet_visit_form");
 
         VetVisitFormBean form = new VetVisitFormBean();
         response.addObject("form", form);
@@ -76,7 +76,7 @@ public class VetVisitController {
         return response;
     }
 
-    @RequestMapping(value = "/vetvisit/registerSubmitVetVisit", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/vetVisit/registerSubmitVetVisit", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView registerSubmitVetVisit(VetVisitFormBean form) throws Exception {
         ModelAndView response = new ModelAndView();
 
@@ -104,7 +104,7 @@ public class VetVisitController {
 
     }
 
-    @RequestMapping(value="/vetvisit/edit/{vetVisitId}", method = RequestMethod.GET)
+    @RequestMapping(value="/vetVisit/edit/{vetVisitId}", method = RequestMethod.GET)
     public ModelAndView editPet(@PathVariable("vetVisitId") Integer vetVisitId) throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("vetVisit/vetVisitForm");

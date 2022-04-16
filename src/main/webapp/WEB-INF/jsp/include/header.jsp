@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="../../../pub/css/register.css">
     <link rel="stylesheet" href="../../../pub/css/index.css">
+    <link rel="stylesheet" href="../../../pub/css/landing.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -43,7 +44,7 @@
         </li>
         <li>
             <sec:authorize access="isAuthenticated()">
-                <a href="/vetvisit/register">New Vet Visit</a>
+                <a href="/vetVisit/register">New Vet Visit</a>
             </sec:authorize>
         </li>
         <li>
