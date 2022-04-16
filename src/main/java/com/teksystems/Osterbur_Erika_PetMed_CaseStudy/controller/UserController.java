@@ -82,17 +82,20 @@ public class UserController {
         response.setViewName("user/register");
 
         User user = userDAO.findById(userId);
+        if(user!=null){
+            RegisterFormBean form = new RegisterFormBean();
 
-        RegisterFormBean form = new RegisterFormBean();
+            form.setId(user.getId());
+            form.setEmail(user.getEmail());
+            form.setFirstName(user.getFirstName());
+            form.setLastName(user.getLastName());
+            form.setPassword(user.getPassword());
+            form.setConfirmPassword(user.getPassword());
 
-        form.setId(user.getId());
-        form.setEmail(user.getEmail());
-        form.setFirstName(user.getFirstName());
-        form.setLastName(user.getLastName());
-        form.setPassword(user.getPassword());
-        form.setConfirmPassword(user.getPassword());
-
-        response.addObject("form", form);
+            response.addObject("form", form);
+        } else{
+            response.setViewName("/error/404");
+        }
 
         return response;
     }
@@ -118,11 +121,13 @@ public class UserController {
         response.setViewName("user/home");
 
         User user = userDAO.findById(userId);
-        List<Pet> petList = userDAO.getById(userId);
-
-
-        response.addObject("user", user);
-        response.addObject("petList", petList);
+        if(user!=null){
+            List<Pet> petList = userDAO.getById(userId);
+            response.addObject("user", user);
+            response.addObject("petList", petList);
+        } else{
+            response.setViewName("/error/404");
+        }
 
         return response;
     }

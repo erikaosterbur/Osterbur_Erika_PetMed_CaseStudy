@@ -39,14 +39,19 @@ public class PetController {
         response.setViewName("pet/pet_profile");
 
         Pet pet = petDAO.findById(petId);
-        List<VetVisit> vetVisitList = petDAO.getById(petId);
+        if(pet!=null){
+            List<VetVisit> vetVisitList = petDAO.getById(petId);
 
-        vetVisitList.sort((o1, o2)
-                -> o2.getDate().compareTo(
-                o1.getDate()));
+            vetVisitList.sort((o1, o2)
+                    -> o2.getDate().compareTo(
+                    o1.getDate()));
 
-        response.addObject("pet", pet);
-        response.addObject("vetVisitList", vetVisitList);
+            response.addObject("pet", pet);
+            response.addObject("vetVisitList", vetVisitList);
+        } else{
+            response.setViewName("/error/404");
+        }
+
         return response;
 
     }
@@ -87,7 +92,7 @@ public class PetController {
             petDAO.save(pet);
 
 
-            response.setViewName("redirect:/user/home/" + user.getId());
+            response.setViewName("redirect:/pet/" + pet.getId());
         }
 
         return response;
@@ -99,21 +104,22 @@ public class PetController {
         response.setViewName("pet/pet_form");
 
         Pet pet = petDAO.findById(petId);
+        if(pet!=null){
+            PetFormBean form = new PetFormBean();
 
-        PetFormBean form = new PetFormBean();
+            form.setId(pet.getId());
+            form.setName(pet.getName());
+            form.setType(pet.getType());
+            form.setBreed(pet.getBreed());
+            form.setBirthday(pet.getBirthday().toString());
 
-        form.setId(pet.getId());
-        form.setName(pet.getName());
-        form.setType(pet.getType());
-        form.setBreed(pet.getBreed());
-        form.setBirthday(pet.getBirthday().toString());
-
-        response.addObject("form", form);
+            response.addObject("form", form);
+        } else{
+            response.setViewName("/error/404");
+        }
 
         return response;
 
     }
-
-
 
 }

@@ -47,10 +47,14 @@ public class VetVisitController {
         response.setViewName("vetVisit/vet_visit_profile");
 
         VetVisit vetVisit = vetVisitDAO.findById(vetVisitId);
-        Vet vet = vetVisitDAO.getById(vetVisitId);
+        if(vetVisit!=null){
+            Vet vet = vetVisitDAO.getById(vetVisitId);
+            response.addObject("vetVisit", vetVisit);
+            response.addObject("vet", vet);
+        } else{
+            response.setViewName("/error/404");
+        }
 
-        response.addObject("vetVisit", vetVisit);
-        response.addObject("vet", vet);
         return response;
 
     }
@@ -116,7 +120,7 @@ public class VetVisitController {
         String username = authentication.getAuthentication();
         User user = userDAO.findByEmail(username);
 
-        if(user != null){
+        if(user != null && vetVisit != null){
             List<Pet> pets = petDAO.findAllByUserId(user.getId());
             response.addObject("pets", pets);
 
@@ -137,6 +141,8 @@ public class VetVisitController {
             response.addObject("pet", pet);
             response.addObject("vet", vet);
             response.addObject("form", form);
+        } else{
+            response.setViewName("/error/404");
         }
         return response;
 
