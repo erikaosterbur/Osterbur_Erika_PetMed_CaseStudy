@@ -107,7 +107,7 @@ public class VetVisitController {
     @RequestMapping(value="/vetVisit/edit/{vetVisitId}", method = RequestMethod.GET)
     public ModelAndView editPet(@PathVariable("vetVisitId") Integer vetVisitId) throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("vetVisit/vetVisitForm");
+        response.setViewName("vetVisit/vet_visit_form");
 
         VetVisit vetVisit = vetVisitDAO.findById(vetVisitId);
 

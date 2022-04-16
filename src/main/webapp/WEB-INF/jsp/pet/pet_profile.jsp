@@ -143,7 +143,7 @@
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-dark m-3"><a href="/vetvisit/edit/${vetVisit.id}">Edit Vet Visit</a></button>
+                        <button class="btn btn-dark m-3"><a href="/vetVisit/edit/${vetVisit.id}">Edit Vet Visit</a></button>
                     </div>
                 </div>
             </div>
