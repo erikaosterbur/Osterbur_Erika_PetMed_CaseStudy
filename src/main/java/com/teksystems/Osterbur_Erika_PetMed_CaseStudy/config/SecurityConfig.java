@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logoutSuccessUrl("/index") //URL you go to when you logout
             .and()
             .exceptionHandling()
-            .accessDeniedPage("/error/404");
+                .accessDeniedPage("/error/404");
     }
 
     @Bean
