@@ -5,27 +5,48 @@
 
 <div id="formContainer">
     <div id="formDiv" class="col-4">
-        <h2>Register Your New Account</h2>
-            <div class="content__wrapper">
-                <form action="/registerSubmitUser" method="post" id="petOwnerRegister" class="col-12 needs-validation" novalidate>
+        <h2>Register your new account</h2>
+        <div class="content__wrapper">
+                <form action="/registerSubmitUser" method="post" id="petOwnerRegister" class="col-12">
                     <div class="mb-3">
                         <input type="email" class="form-control form-control-lg" id="userEmailId" name="email" placeholder="email">
-                        <div class="invalid-feedback">Please provide a valid email</div>
+                        <c:forEach items="${bindingResult.getFieldErrors('email')}" var="error">
+                            <div style="color: red;">
+                                    ${error.getDefaultMessage()}
+                            </div>
+                        </c:forEach>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control form-control-lg" id="userFirstNameId" name="firstName" placeholder="first name" required>
-                        <div class="invalid-feedback">Please provide a first name</div>
+                        <input type="text" class="form-control form-control-lg" id="userFirstNameId" name="firstName" placeholder="first name">
+                        <c:forEach items="${bindingResult.getFieldErrors('firstName')}" var="error">
+                            <div style="color: red;">
+                                    ${error.getDefaultMessage()}
+                            </div>
+                        </c:forEach>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control form-control-lg" id="userLastNameId" name="lastName" placeholder="last name" required>
-                        <div class="invalid-feedback">Please provide a last name</div>
+                        <input type="text" class="form-control form-control-lg" id="userLastNameId" name="lastName" placeholder="last name">
+                        <c:forEach items="${bindingResult.getFieldErrors('lastName')}" var="error">
+                            <div style="color: red;">
+                                    ${error.getDefaultMessage()}
+                            </div>
+                        </c:forEach>
                     </div>
                     <div class="mb-3">
-                        <input type="password" class="form-control form-control-lg" id="userPasswordId" name="password" placeholder="password" required>
-                        <div class="invalid-feedback">Please provide a password</div>
+                        <input type="password" class="form-control form-control-lg" id="userPasswordId" name="password" placeholder="password">
+                        <c:forEach items="${bindingResult.getFieldErrors('password')}" var="error">
+                            <div style="color: red;">
+                                    ${error.getDefaultMessage()}
+                            </div>
+                        </c:forEach>
                     </div>
                     <div class="mb-3">
-                        <input onkeyup='check();' type="password" class="form-control form-control-lg" id="userConfirmPasswordId" name="confirmPassword" placeholder="reenter password" required>
+                        <input onkeyup='check();' type="password" class="form-control form-control-lg" id="userConfirmPasswordId" name="confirmPassword" placeholder="reenter password">
+                        <c:forEach items="${bindingResult.getFieldErrors('confirmPassword')}" var="error">
+                            <div style="color: red;">
+                                    ${error.getDefaultMessage()}
+                            </div>
+                        </c:forEach>
                     </div>
                     <div class="col-12 m-4 pt-2" id="message"></div>
                     <div class="d-flex justify-content-center">

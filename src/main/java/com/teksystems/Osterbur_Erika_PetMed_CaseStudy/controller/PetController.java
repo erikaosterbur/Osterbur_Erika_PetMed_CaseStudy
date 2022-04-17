@@ -10,12 +10,17 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.security.AuthenticationFac
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -68,9 +73,25 @@ public class PetController {
     }
 
     @RequestMapping(value = "/pet/registerSubmitPet", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView registerSubmitPet(PetFormBean form) throws Exception {
+    public ModelAndView registerSubmitPet(@Valid PetFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
 
+        if(bindingResult.hasErrors()){
+            List<String> errorMessages = new ArrayList<>();
+
+            for(ObjectError error : bindingResult.getAllErrors()){
+                errorMessages.add(error.getDefaultMessage());
+                log.info( ((FieldError) error).getField() + " " + error.getDefaultMessage());
+            }
+            response.addObject("form", form);
+
+            response.addObject("errorMessages", errorMessages);
+            response.addObject("bindingResult", bindingResult);
+
+            response.setViewName("pet/pet_form");
+
+            return response;
+        }
         String username = authentication.getAuthentication();
         User user = userDAO.findByEmail(username);
 
@@ -91,10 +112,8 @@ public class PetController {
 
             petDAO.save(pet);
 
-
             response.setViewName("redirect:/pet/" + pet.getId());
         }
-
         return response;
     }
 

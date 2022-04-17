@@ -26,21 +26,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
-            //allows a user to access each of these folders
-            .antMatchers("/pub/**", "/error/**", "/login/**", "/index", "register/**").permitAll()
-            //every controller should have its own URL -- like /user/ or /appointment/  //URLs are a protected resource for anyone
-            .antMatchers("/admin/**", "/user/**", "/pet/**", "/vetvisit/**").authenticated()
-            .and()
+                .antMatchers("/pub/**", "/error/**", "/login/**", "/index", "register/**").permitAll()
+                .antMatchers("/admin/**", "/user/**", "/pet/**", "/vetVisit/**").authenticated()
+                .and()
             .formLogin()
-            .loginPage("/login/login") //this is a URL
-            .loginProcessingUrl("/login/loginSubmit")
-            .defaultSuccessUrl("/index")
-            .and()
+                .loginPage("/login/login") //this is a URL
+                .loginProcessingUrl("/login/loginSubmit")
+                .defaultSuccessUrl("/index")
+                .and()
             .logout()
-            .invalidateHttpSession(true)
-            .logoutUrl("/login/logout") //Spring Boot listens for this method
-            .logoutSuccessUrl("/index") //URL you go to when you logout
-            .and()
+                .invalidateHttpSession(true)
+                .logoutUrl("/login/logout") //Spring Boot listens for this method
+                .logoutSuccessUrl("/index") //URL you go to when you logout
+                .and()
             .exceptionHandling()
                 .accessDeniedPage("/error/404");
     }

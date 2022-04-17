@@ -21,12 +21,20 @@
 <div id="formContainer">
     <div id="formDiv" class="col-4">
         <form action="/pet/registerSubmitPet" method="post">
+
             <input type="hidden" name="id" value="${form.id}">
+
             <input type="text" name="name" placeholder="Enter pet's name" class="form-control form-control-lg mb-3" value="${form.name}">
+            <c:forEach items="${bindingResult.getFieldErrors('name')}" var="error">
+                <div style="color: red;">
+                        ${error.getDefaultMessage()}
+                </div>
+            </c:forEach>
             <div id="formSelect">
+                <label for="addPetTypeSelect">Type</label>
                 <select class="form-select mb-3" id="addPetTypeSelect" name="type">
                     <c:if test="${empty form.id}">
-                        <option selected>Type...</option>
+                        <option selected></option>
                     </c:if>
                     <c:if test="${not empty form.id}">
                         <option selected value="${form.type}">${form.type}</option>
@@ -50,10 +58,28 @@
                     <option value="Fish" name="Fish">Fish</option>
                     <option value="Other" name="Other">Other</option>
                 </select>
+                <c:forEach items="${bindingResult.getFieldErrors('type')}" var="error">
+                    <div style="color: red;">
+                            ${error.getDefaultMessage()}
+                    </div>
+                </c:forEach>
             </div>
+
             <input type="text" name="breed" placeholder="Enter pet breed" class="form-control form-control-lg mb-3" value="${form.breed}">
+            <c:forEach items="${bindingResult.getFieldErrors('breed')}" var="error">
+                <div style="color: red;">
+                        ${error.getDefaultMessage()}
+                </div>
+            </c:forEach>
+
             <label for="birthday">Date of birth</label>
             <input id="birthday" type="date" name="birthday" placeholder="Enter pet birthday" class="form-control form-control-lg mb-3" value="${form.birthday}">
+            <c:forEach items="${bindingResult.getFieldErrors('birthday')}" var="error">
+                <div style="color: red;">
+                        ${error.getDefaultMessage()}
+                </div>
+            </c:forEach>
+
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-dark">Save Pet</button>
             </div>

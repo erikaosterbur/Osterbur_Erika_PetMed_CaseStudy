@@ -12,9 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -48,9 +53,26 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/registerSubmitUser", method = RequestMethod.POST)
-    public ModelAndView registerSubmitUser(RegisterFormBean form) throws Exception {
+    @RequestMapping(value = "/registerSubmitUser", method = {RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView registerSubmitUser(@Valid RegisterFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
+
+        if(bindingResult.hasErrors()){
+            List<String> errorMessages = new ArrayList<>();
+
+            for(ObjectError error : bindingResult.getFieldErrors()){
+                errorMessages.add(error.getDefaultMessage());
+                log.info( ((FieldError) error).getField() + " " + error.getDefaultMessage());
+            }
+            response.addObject("form", form);
+
+            response.addObject("errorMessages", errorMessages);
+            response.addObject("bindingResult", bindingResult);
+
+            response.setViewName("register/register");
+
+            return response;
+        }
 
         User user = userDAO.findById(form.getId());
 
@@ -77,9 +99,25 @@ public class UserController {
     }
 
     @GetMapping("/user/edit/{userId}")
-    public ModelAndView editUser(@PathVariable("userId") Integer userId) throws Exception {
+    public ModelAndView editUser(@PathVariable("userId") Integer userId, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("user/register");
+
+        if(bindingResult.hasErrors()){
+            List<String> errorMessages = new ArrayList<>();
+
+            for(ObjectError error : bindingResult.getAllErrors()){
+                errorMessages.add(error.getDefaultMessage());
+                log.info( ((FieldError) error).getField() + " " + error.getDefaultMessage());
+            }
+
+            response.addObject("errorMessages", errorMessages);
+            response.addObject("bindingResult", bindingResult);
+
+            response.setViewName("user/register");
+
+            return response;
+        }
 
         User user = userDAO.findById(userId);
         if(user!=null){
