@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Controller
@@ -57,13 +58,18 @@ public class UserController {
     public ModelAndView registerSubmitUser(@Valid RegisterFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
 
-        if(bindingResult.hasErrors()){
+        if(bindingResult.hasErrors() && form.getPassword() != form.getConfirmPassword()){
             List<String> errorMessages = new ArrayList<>();
 
             for(ObjectError error : bindingResult.getFieldErrors()){
                 errorMessages.add(error.getDefaultMessage());
                 log.info( ((FieldError) error).getField() + " " + error.getDefaultMessage());
             }
+
+            String notMatch = "Passwords do not match";
+
+            response.addObject("notMatch", notMatch);
+
             response.addObject("form", form);
 
             response.addObject("errorMessages", errorMessages);
@@ -72,86 +78,111 @@ public class UserController {
             response.setViewName("register/register");
 
             return response;
-        }
-
-        User user = userDAO.findById(form.getId());
-
-        if(user == null){
-            user = new User();
-        }
-
-        user.setEmail(form.getEmail());
-        user.setFirstName(form.getFirstName());
-        user.setLastName(form.getLastName());
-        String password = passwordEncoder.encode(form.getPassword());
-        user.setPassword(password);
-
-        userDAO.save(user);
-
-        UserRole userRole = new UserRole();
-        userRole.setUserId(user.getId());
-        userRole.setUserRole("USER");
-
-        userRoleDAO.save(userRole);
-
-        response.setViewName("redirect:/user/home/" + user.getId());
-        return response;
-    }
-
-    @GetMapping("/user/edit/{userId}")
-    public ModelAndView editUser(@PathVariable("userId") Integer userId, BindingResult bindingResult) throws Exception {
-        ModelAndView response = new ModelAndView();
-        response.setViewName("user/register");
-
-        if(bindingResult.hasErrors()){
+        } else if(bindingResult.hasErrors()){
             List<String> errorMessages = new ArrayList<>();
 
-            for(ObjectError error : bindingResult.getAllErrors()){
+            for(ObjectError error : bindingResult.getFieldErrors()){
                 errorMessages.add(error.getDefaultMessage());
                 log.info( ((FieldError) error).getField() + " " + error.getDefaultMessage());
             }
 
+            response.addObject("form", form);
+
             response.addObject("errorMessages", errorMessages);
             response.addObject("bindingResult", bindingResult);
 
-            response.setViewName("user/register");
+            response.setViewName("register/register");
 
             return response;
-        }
+        } else if(form.getPassword() != form.getConfirmPassword()){
+            String notMatch = "Passwords do not match";
 
-        User user = userDAO.findById(userId);
-        if(user!=null){
-            RegisterFormBean form = new RegisterFormBean();
+            response.addObject("notMatch", notMatch);
 
-            form.setId(user.getId());
-            form.setEmail(user.getEmail());
-            form.setFirstName(user.getFirstName());
-            form.setLastName(user.getLastName());
-            form.setPassword(user.getPassword());
-            form.setConfirmPassword(user.getPassword());
-
-            response.addObject("form", form);
+            response.setViewName("register/register");
         } else{
-            response.setViewName("/error/404");
-        }
+            User user = userDAO.findById(form.getId());
 
-        return response;
-    }
+            if(user == null){
+                user = new User();
+            }
+            user.setEmail(form.getEmail());
+            user.setFirstName(form.getFirstName());
+            user.setLastName(form.getLastName());
+            String password = passwordEncoder.encode(form.getPassword());
+            user.setPassword(password);
 
-    @GetMapping("/user/home")
-    public ModelAndView userHome() throws Exception {
-        ModelAndView response = new ModelAndView();
+            userDAO.save(user);
 
-        String username = authentication.getAuthentication();
-        User user = userDAO.findByEmail(username);
+            UserRole userRole = new UserRole();
+            userRole.setUserId(user.getId());
+            userRole.setUserRole("USER");
 
-        if(user != null){
-            response.addObject("user", user);
+            userRoleDAO.save(userRole);
+
             response.setViewName("redirect:/user/home/" + user.getId());
         }
 
         return response;
+
     }
+
+    //get working if I have time
+
+//    @GetMapping("/user/edit/{userId}")
+//    public ModelAndView editUser(@PathVariable("userId") Integer userId, BindingResult bindingResult) throws Exception {
+//        ModelAndView response = new ModelAndView();
+//        response.setViewName("user/register");
+//
+//        if(bindingResult.hasErrors()){
+//            List<String> errorMessages = new ArrayList<>();
+//
+//            for(ObjectError error : bindingResult.getAllErrors()){
+//                errorMessages.add(error.getDefaultMessage());
+//                log.info( ((FieldError) error).getField() + " " + error.getDefaultMessage());
+//            }
+//
+//            response.addObject("errorMessages", errorMessages);
+//            response.addObject("bindingResult", bindingResult);
+//
+//            response.setViewName("user/register");
+//
+//            return response;
+//        }
+//
+//        User user = userDAO.findById(userId);
+//        if(user!=null){
+//            RegisterFormBean form = new RegisterFormBean();
+//
+//            form.setId(user.getId());
+//            form.setEmail(user.getEmail());
+//            form.setFirstName(user.getFirstName());
+//            form.setLastName(user.getLastName());
+//            form.setPassword(user.getPassword());
+//            form.setConfirmPassword(user.getPassword());
+//
+//            response.addObject("form", form);
+//        } else{
+//            response.setViewName("/error/404");
+//        }
+//
+//        return response;
+//    }
+//
+//    @GetMapping("/user/home")
+//    public ModelAndView userHome() throws Exception {
+//        ModelAndView response = new ModelAndView();
+//
+//        String username = authentication.getAuthentication();
+//        User user = userDAO.findByEmail(username);
+//
+//        if(user != null){
+//            response.addObject("user", user);
+//            response.setViewName("redirect:/user/home/" + user.getId());
+//        }
+//
+//        return response;
+//    }
 
     @GetMapping("/user/home/{userId}")
     public ModelAndView userHomePage(@PathVariable("userId") Integer userId) throws Exception {

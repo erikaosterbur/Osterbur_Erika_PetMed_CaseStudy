@@ -15,6 +15,7 @@
                                     ${error.getDefaultMessage()}
                             </div>
                         </c:forEach>
+                        <div class="col-12 m-4 pt-2" id="emailMessage"></div>
                     </div>
                     <div class="mb-3">
                         <input type="text" class="form-control form-control-lg" id="userFirstNameId" name="firstName" placeholder="first name">
@@ -39,16 +40,16 @@
                                     ${error.getDefaultMessage()}
                             </div>
                         </c:forEach>
+                        <div class="col-12 m-4 pt-2" id="passwordMessage"></div>
                     </div>
                     <div class="mb-3">
                         <input onkeyup='check();' type="password" class="form-control form-control-lg" id="userConfirmPasswordId" name="confirmPassword" placeholder="reenter password">
-                        <c:forEach items="${bindingResult.getFieldErrors('confirmPassword')}" var="error">
                             <div style="color: red;">
-                                    ${error.getDefaultMessage()}
+                                    ${notMatch}
                             </div>
-                        </c:forEach>
                     </div>
                     <div class="col-12 m-4 pt-2" id="message"></div>
+                    <div class="col-12 m-4 pt-2" id="confirmPasswordMessage"></div>
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-dark">Register</button>
                     </div>

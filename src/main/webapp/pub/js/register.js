@@ -16,36 +16,14 @@
 //         {
 //             console.log("Success!");
 //         } else if(!emailRegex.test(userEmailId)){
-//             alert("Not a valid email!");
+//             $('#emailMessage').innerText('Not a valid email');
 //         } else if(!passwordRegex.test(userPasswordId)){
-//             alert("Password must contain at least one letter, one number, and be between 8 and 20 characters");
+//             $('#passwordMessage').innerText('Password must contain at least one lowercase letter, one uppercase letter, and one number');
 //         } else if(userPasswordId !== userConfirmPasswordId){
-//             alert("Passwords do not match");
+//             $('#confirmPasswordMessage').innerText("Passwords do not match");
 //         }
 //     });
 // });
-//
-// // Disabling form submissions if there are invalid fields
-// (function () {
-//     'use strict'
-//
-//     // Fetch all the forms we want to apply custom Bootstrap validation styles to
-//     let form1 = document.getElementById('petOwnerRegister')
-//
-//     // Loop over them and prevent submission
-//     Array.prototype.slice.call(form1)
-//         .forEach(function (form) {
-//             form1.addEventListener('submit', function (event) {
-//                 if (!form1.checkValidity()) {
-//                     event.preventDefault()
-//                     event.stopPropagation()
-//                 }
-//
-//                 form1.classList.add('was-validated')
-//             }, false)
-//         })
-// })();
-
 
 let check = function() {
     if (document.getElementById('userPasswordId').value ===

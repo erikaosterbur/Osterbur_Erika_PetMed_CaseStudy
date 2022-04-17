@@ -130,45 +130,46 @@ public class VetVisitController {
 
     }
 
-    @RequestMapping(value="/vetVisit/edit/{vetVisitId}", method = RequestMethod.GET)
-    public ModelAndView editPet(@PathVariable("vetVisitId") Integer vetVisitId) throws Exception {
-        ModelAndView response = new ModelAndView();
-        response.setViewName("vetVisit/vet_visit_form");
-
-        VetVisit vetVisit = vetVisitDAO.findById(vetVisitId);
-
-        VetVisitFormBean form = new VetVisitFormBean();
-
-        String username = authentication.getAuthentication();
-        User user = userDAO.findByEmail(username);
-
-        if(user != null && vetVisit != null){
-            List<Pet> pets = petDAO.findAllByUserId(user.getId());
-            response.addObject("pets", pets);
+    //if time, get this working
 
 
-            form.setId(vetVisit.getId());
-            form.setDate(vetVisit.getDate().toString());
-            form.setVaccines(vetVisit.getVaccines());
-            form.setNotes(vetVisit.getNotes());
-            form.setWeight(vetVisit.getWeight());
-            form.setVetId(vetVisit.getVet().getId());
-
-            List<Vet> vets = vetDAO.findAll();
-            response.addObject("vets", vets);
-
-            Pet pet = vetVisit.getPet();
-            Vet vet = vetVisit.getVet();
-
-            response.addObject("pet", pet);
-            response.addObject("vet", vet);
-            response.addObject("form", form);
-        } else{
-            response.setViewName("/error/404");
-        }
-        return response;
-
-    }
-
+//    @RequestMapping(value="/vetVisit/edit/{vetVisitId}", method = RequestMethod.GET)
+//    public ModelAndView editPet(@PathVariable("vetVisitId") Integer vetVisitId) throws Exception {
+//        ModelAndView response = new ModelAndView();
+//        response.setViewName("vetVisit/vet_visit_form");
+//
+//        VetVisit vetVisit = vetVisitDAO.findById(vetVisitId);
+//
+//        VetVisitFormBean form = new VetVisitFormBean();
+//
+//        String username = authentication.getAuthentication();
+//        User user = userDAO.findByEmail(username);
+//
+//        if(user != null && vetVisit != null){
+//            List<Pet> pets = petDAO.findAllByUserId(user.getId());
+//            response.addObject("pets", pets);
+//
+//            form.setId(vetVisit.getId());
+//            form.setDate(vetVisit.getDate().toString());
+//            form.setVaccines(vetVisit.getVaccines());
+//            form.setNotes(vetVisit.getNotes());
+//            form.setWeight(vetVisit.getWeight());
+//            form.setVetId(vetVisit.getVet().getId());
+//
+//            List<Vet> vets = vetDAO.findAll();
+//            response.addObject("vets", vets);
+//
+//            Pet pet = vetVisit.getPet();
+//            Vet vet = vetVisit.getVet();
+//
+//            response.addObject("pet", pet);
+//            response.addObject("vet", vet);
+//            response.addObject("form", form);
+//        } else{
+//            response.setViewName("/error/404");
+//        }
+//        return response;
+//
+//    }
 
 }
