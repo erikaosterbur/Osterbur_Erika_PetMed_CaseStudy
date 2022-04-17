@@ -24,6 +24,7 @@ public class PetFormBean {
 
     @NotBlank(message = "Birthday is required")
     private String birthday;
+
     private Integer userId;
 
 }
