@@ -12,6 +12,7 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.VetVisitFormBean;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.security.AuthenticationFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -171,5 +173,20 @@ public class VetVisitController {
 //        return response;
 //
 //    }
+
+    @Transactional
+    @RequestMapping(value="/vetVisit/deleteVetVisit/{vetVisitId}", method={RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView deleteVet(@PathVariable("vetVisitId") Integer vetVisitId) throws Exception{
+        ModelAndView response = new ModelAndView();
+
+        String username = authentication.getAuthentication();
+        User user = userDAO.findByEmail(username);
+
+        vetVisitDAO.deleteById(vetVisitId);
+
+        response.setViewName("redirect:/user/home/" + user.getId());
+
+        return response;
+    }
 
 }

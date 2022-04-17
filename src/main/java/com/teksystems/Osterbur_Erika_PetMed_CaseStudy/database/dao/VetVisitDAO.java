@@ -14,6 +14,8 @@ public interface VetVisitDAO extends JpaRepository<VetVisit, Long> {
 
     VetVisit findById(@Param("id") Integer id);
 
+    void deleteById(@Param("id") Integer id);
+
     @Query(value = "select v.vet from VetVisit v where v.id = :id")
     Vet getById(@Param("id") Integer id);
 

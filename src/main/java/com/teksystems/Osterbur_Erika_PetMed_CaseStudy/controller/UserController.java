@@ -10,6 +10,7 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.security.AuthenticationFac
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,10 +19,9 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -169,20 +169,20 @@ public class UserController {
 //        return response;
 //    }
 //
-//    @GetMapping("/user/home")
-//    public ModelAndView userHome() throws Exception {
-//        ModelAndView response = new ModelAndView();
-//
-//        String username = authentication.getAuthentication();
-//        User user = userDAO.findByEmail(username);
-//
-//        if(user != null){
-//            response.addObject("user", user);
-//            response.setViewName("redirect:/user/home/" + user.getId());
-//        }
-//
-//        return response;
-//    }
+    @GetMapping("/user/home")
+    public ModelAndView userHome() throws Exception {
+        ModelAndView response = new ModelAndView();
+
+        String username = authentication.getAuthentication();
+        User user = userDAO.findByEmail(username);
+
+        if(user != null){
+            response.addObject("user", user);
+            response.setViewName("redirect:/user/home/" + user.getId());
+        }
+
+        return response;
+    }
 
     @GetMapping("/user/home/{userId}")
     public ModelAndView userHomePage(@PathVariable("userId") Integer userId) throws Exception {
@@ -234,13 +234,22 @@ public class UserController {
     }
 
 //    @PreAuthorize("hasAuthority('ADMIN')")
-//    @DeleteMapping (value = "admin/vetDelete/{vetId}")
-//    public Vet deleteVet(@PathVariable("vetId") Integer vetId) throws Exception {
-
-    //Do a delete if vet is not associated with vet visit
+//    @Transactional
+//    @RequestMapping(value="/admin/vetDelete/{vetId}", method={RequestMethod.POST, RequestMethod.GET})
+//    public ModelAndView deleteVet(@PathVariable("vetId") Integer vetId) throws Exception{
+//        ModelAndView response = new ModelAndView();
 //
-//        return vetDAO.deleteById(vetId);
+//        Vet vet = vetDAO.findById(vetId);
 //
+//        List<VetVisit> vetVisitList = vet.getVetVisitList();
+//
+//        if(vetVisitList.isEmpty()){
+//            vetDAO.deleteById(vetId);
+//        }
+//
+//        response.setViewName("redirect:/admin");
+//
+//        return response;
 //    }
 
 }

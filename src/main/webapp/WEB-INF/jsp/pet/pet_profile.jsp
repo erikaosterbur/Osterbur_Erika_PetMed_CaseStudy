@@ -142,9 +142,9 @@
                         </tr>
                         </tbody>
                     </table>
-<%--                    <div class="d-flex justify-content-center">--%>
-<%--                        <button class="btn btn-dark m-3"><a href="/vetVisit/edit/${vetVisit.id}">Edit Vet Visit</a></button>--%>
-<%--                    </div>--%>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-dark m-3"><a href="/vetVisit/deleteVetVisit/${vetVisit.id}">Delete Vet Visit</a></button>
+                    </div>
                 </div>
             </div>
     </c:forEach>
