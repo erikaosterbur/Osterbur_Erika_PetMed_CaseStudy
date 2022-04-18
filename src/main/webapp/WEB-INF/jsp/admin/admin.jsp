@@ -3,17 +3,15 @@
 
 <jsp:include page="../include/header.jsp" />
 
-<%--<style>--%>
-<%--    button a {--%>
-<%--        text-decoration: none;--%>
-<%--        color: white;--%>
-<%--    }--%>
-<%--    button a:hover{--%>
-<%--        color: #bd724a;--%>
-<%--    }--%>
-<%--</style>--%>
+<style>
+    h1{
+        text-align: center;
+        color: white;
+        margin: 30px;
+    }
+</style>
 
-<h1 style="color: rgb(255, 255, 255); margin: 30px" class="d-flex justify-content-center">Current Vet List</h1>
+<h1>Current Vet List</h1>
 
 <div class="d-flex justify-content-center flex-wrap">
     <div class="card m-3" style="width: 50rem;">
@@ -32,7 +30,6 @@
                         <td>${vet.firstName}</td>
                         <td>${vet.lastName}</td>
                         <td>${vet.clinic}</td>
-<%--                        <td><button type="submit" class="btn btn-dark"><a href="/admin/vetDelete/${vet.id}">Delete Vet From System</a></button></td>--%>
                     </tr>
                 </c:forEach>
                 </tbody>

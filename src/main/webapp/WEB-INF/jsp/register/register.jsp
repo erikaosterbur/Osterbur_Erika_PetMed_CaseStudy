@@ -1,11 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <jsp:include page="../include/header.jsp" />
+<style>
+    h1{
+        color: white;
+        text-align: center;
+        margin: 30px;
+    }
+</style>
+
+<h1>Register your new account</h1>
 
 <div id="formContainer">
     <div id="formDiv" class="col-4">
-        <h2>Register your new account</h2>
             <form action="/registerSubmitUser" method="post" id="petOwnerRegister" class="col-12">
                 <div class="mb-3">
                     <input type="email" class="form-control form-control-lg" id="userEmailId" name="email" placeholder="email">
@@ -48,7 +55,6 @@
                         </div>
                 </div>
                 <div class="col-12 m-4 pt-2" id="message"></div>
-                <div class="col-12 m-4 pt-2" id="confirmPasswordMessage"></div>
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-dark">Register</button>
                 </div>

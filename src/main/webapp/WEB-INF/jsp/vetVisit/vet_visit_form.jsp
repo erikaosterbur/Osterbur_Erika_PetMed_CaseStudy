@@ -68,7 +68,7 @@
             <input type="text" name="weight" placeholder="Weight in lbs" class="form-control form-control-lg mb-3" value="${form.weight}">
             <c:forEach items="${bindingResult.getFieldErrors('weight')}" var="error">
                 <div style="color: red;">
-                        ${error.getDefaultMessage()}
+                        Enter a valid weight in number form (if your pet was not weighed, put NA)
                 </div>
             </c:forEach>
 

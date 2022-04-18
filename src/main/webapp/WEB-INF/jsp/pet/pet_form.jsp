@@ -8,6 +8,9 @@
         text-align: center;
         margin: 30px;
     }
+    label{
+        color: white;
+    }
 </style>
 
 <c:if test="${empty form.id}">
@@ -24,14 +27,19 @@
 
             <input type="hidden" name="id" value="${form.id}">
 
-            <input type="text" name="name" placeholder="Enter pet's name" class="form-control form-control-lg mb-3" value="${form.name}">
+            <c:if test="${not empty form.id}">
+                <label for="petName">Name</label>
+            </c:if>
+            <input type="text" name="name" placeholder="Enter pet's name" class="form-control form-control-lg mb-3" value="${form.name}" id="petName">
+
             <c:forEach items="${bindingResult.getFieldErrors('name')}" var="error">
                 <div style="color: red;">
                         ${error.getDefaultMessage()}
                 </div>
             </c:forEach>
+
             <div id="formSelect">
-                <label for="addPetTypeSelect" style="color: white">Type</label>
+                <label for="addPetTypeSelect">Type</label>
                 <select class="form-select mb-3" id="addPetTypeSelect" name="type">
                     <c:if test="${empty form.id}">
                         <option selected></option>
@@ -65,7 +73,10 @@
                 </c:forEach>
             </div>
 
-            <input type="text" name="breed" placeholder="Enter pet breed" class="form-control form-control-lg mb-3" value="${form.breed}">
+            <c:if test="${not empty form.id}">
+                <label for="petBreed">Breed</label>
+            </c:if>
+            <input type="text" name="breed" placeholder="Enter pet breed" class="form-control form-control-lg mb-3" value="${form.breed}" id="petBreed">
             <c:forEach items="${bindingResult.getFieldErrors('breed')}" var="error">
                 <div style="color: red;">
                         ${error.getDefaultMessage()}
