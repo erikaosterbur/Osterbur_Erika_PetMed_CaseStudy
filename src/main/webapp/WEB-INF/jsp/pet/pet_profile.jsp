@@ -8,10 +8,6 @@
         color: white;
         text-align: center;
     }
-    h3{
-        color: white;
-        text-align: center;
-    }
     img{
         max-width: 30%;
         border: 10px solid white;
@@ -30,12 +26,23 @@
     h4 a:hover{
         color: #bd724a;
     }
+    .petProfile > th{
+        font-size: 30px;
+        text-align: end;
+    }
+    .petProfile > td{
+        font-size: 30px;
+    }
     th{
         font-size: 40px;
         text-align:center;
     }
     td{
         font-size: 20px;
+    }
+    .card{
+        background-image: url("../../../pub/images/washi.webp");
+        background-repeat: repeat;
     }
 </style>
 <div class="d-flex justify-content-center m-5">
@@ -96,21 +103,41 @@
         </c:otherwise>
     </c:choose>
 </div>
-    <div class="m-3">
-        <h1>Name: ${pet.name}</h1>
-        <h3>Type: ${pet.type}</h3>
-        <h3>Breed: ${pet.breed}</h3>
-        <h3>Birthday: <fmt:formatDate value ="${pet.birthday}" pattern="MM/dd/yyyy"/></h3>
-        <div class="d-flex justify-content-center">
-            <button class="btn btn-dark m-3"><a href="/pet/edit/${pet.id}">Edit Pet Info</a></button>
+<div class="d-flex justify-content-center flex-wrap">
+    <div class="card m-3" style="width: 25rem;">
+        <div class="card-body">
+            <table class="table table-light table-striped">
+                <tbody>
+                    <tr class="petProfile">
+                        <th>Name:</th>
+                        <td>${pet.name}</td>
+                    </tr>
+                    <tr class="petProfile">
+                        <th>Type:</th>
+                        <td>${pet.type}</td>
+                    </tr>
+                    <tr class="petProfile">
+                        <th>Breed:</th>
+                        <td>${pet.breed}</td>
+                    </tr>
+                    <tr class="petProfile">
+                        <th>Date of birth:</th>
+                        <td><fmt:formatDate value ="${pet.birthday}" pattern="MM/dd/yyyy"/></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-dark m-3"><a href="/pet/edit/${pet.id}">Edit Pet Info</a></button>
+            </div>
         </div>
     </div>
+</div>
 <div class="d-flex justify-content-center flex-wrap">
     <c:forEach var="vetVisit" items="${vetVisitList}">
             <div class="card m-5" style="width: 25rem;">
                 <div class="card-body">
-                    <table class="table table-striped">
-                        <tbody>
+                    <table class="table table-light table-striped">
+                        <tbody id="vetVisitTable">
                         <tr>
                             <th>&#128197;</th>
                             <td><fmt:formatDate value ="${vetVisit.date}" pattern="MM/dd/yyyy"/></td>

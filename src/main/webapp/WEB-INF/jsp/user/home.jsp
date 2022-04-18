@@ -19,6 +19,10 @@
             max-width:35%;
             border: 10px solid white;
         }
+        .card{
+            background-image: url("../../../pub/images/washi.webp");
+            background-repeat: repeat;
+        }
     </style>
 
     <h1 style="color: rgb(255, 255, 255); margin: 50px" class="d-flex justify-content-center">Welcome, ${user.firstName}!</h1>
@@ -94,7 +98,7 @@
                         </c:otherwise>
                     </c:choose>
                     <h3 class="card-title p-2" style="text-align: center"><a href="/pet/${pet.id}">${pet.name}</a></h3>
-                    <table class="table table-striped">
+                    <table class="table table-light table-striped">
                         <tbody>
                         <tr>
                             <th>Type:</th>

@@ -21,10 +21,10 @@
 
 <div id="formContainer">
     <div id="formDiv" class="col-4">
-        <form action="/vetVisit/registerSubmitVetVisit" method="post">
+        <form action="/vetVisit/registerSubmitVetVisit" method="post" id="vetVisitRegister">
             <input type="hidden" name="id" value="${form.id}">
 
-            <label for="addPetSelect">Which pet went to the vet?</label>
+            <label for="addPetSelect" style="color: white">Which pet went to the vet?</label>
             <select class="form-select mb-3" id="addPetSelect" name="petId">
                 <c:if test="${empty form.id}">
                     <option selected></option>
@@ -43,7 +43,7 @@
                 </div>
             </c:forEach>
 
-            <label for="date">Date of Visit</label>
+            <label for="date" style="color: white">Date of Visit</label>
             <input id="date" type="date" name="date" placeholder="Date" class="form-control form-control-lg mb-3" value="${form.date}">
             <c:forEach items="${bindingResult.getFieldErrors('date')}" var="error">
                 <div style="color: red;">
@@ -72,7 +72,7 @@
                 </div>
             </c:forEach>
 
-            <label for="addVetSelect">Which vet did your pet see?</label>
+            <label for="addVetSelect" style="color: white">Which vet did your pet see?</label>
             <select class="form-select mb-3" id="addVetSelect" name="vetId">
                 <c:if test="${empty form.id}">
                     <option selected></option>

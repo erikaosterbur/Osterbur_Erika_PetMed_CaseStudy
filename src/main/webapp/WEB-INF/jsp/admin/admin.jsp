@@ -44,7 +44,7 @@
 <div id="formContainer">
     <div id="formDiv" class="col-4">
         <h2>Add New Vet</h2>
-        <form action="/admin/vetRegisterSubmit" method="post">
+        <form action="/admin/vetRegisterSubmit" method="post" id="vetRegister">
             <input type="text" name="firstName" placeholder="Enter vet's first name" class="form-control form-control-lg mb-3">
             <input type="text" name="lastName" placeholder="Enter vet's last name" class="form-control form-control-lg mb-3">
             <input type="text" name="clinic" placeholder="Enter vet's primary clinic name" class="form-control form-control-lg mb-3">

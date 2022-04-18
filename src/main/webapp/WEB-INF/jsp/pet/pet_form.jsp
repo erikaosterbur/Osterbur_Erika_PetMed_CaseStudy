@@ -20,7 +20,7 @@
 
 <div id="formContainer">
     <div id="formDiv" class="col-4">
-        <form action="/pet/registerSubmitPet" method="post">
+        <form action="/pet/registerSubmitPet" method="post" id="petRegister">
 
             <input type="hidden" name="id" value="${form.id}">
 
@@ -31,7 +31,7 @@
                 </div>
             </c:forEach>
             <div id="formSelect">
-                <label for="addPetTypeSelect">Type</label>
+                <label for="addPetTypeSelect" style="color: white">Type</label>
                 <select class="form-select mb-3" id="addPetTypeSelect" name="type">
                     <c:if test="${empty form.id}">
                         <option selected></option>
@@ -72,7 +72,7 @@
                 </div>
             </c:forEach>
 
-            <label for="birthday">Date of birth</label>
+            <label for="birthday" style="color: white">Date of birth</label>
             <input id="birthday" type="date" name="birthday" placeholder="Enter pet birthday" class="form-control form-control-lg mb-3" value="${form.birthday}">
             <c:forEach items="${bindingResult.getFieldErrors('birthday')}" var="error">
                 <div style="color: red;">

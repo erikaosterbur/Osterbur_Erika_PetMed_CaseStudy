@@ -20,7 +20,7 @@ public class LoginController {
     @Autowired
     private AuthenticationFacade authentication;
 
-    @RequestMapping(value="/login/login", method = RequestMethod.GET)
+    @RequestMapping(value="/login/login", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView login() throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("login/login_form");
@@ -30,10 +30,27 @@ public class LoginController {
 
         if(user!=null){
             response.addObject(user);
-
             response.setViewName("redirect:/user/home/");
         }
 
         return response;
     }
+
+    @RequestMapping(value="/login/loginError", method={RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView loginError() throws Exception {
+        ModelAndView response = new ModelAndView();
+        response.setViewName("login/login_error");
+
+        String username = authentication.getAuthentication();
+        User user = userDAO.findByEmail(username);
+
+        if(user!=null){
+            response.addObject(user);
+            response.setViewName("redirect:/user/home/");
+        }
+
+        return response;
+
+    }
+
 }
