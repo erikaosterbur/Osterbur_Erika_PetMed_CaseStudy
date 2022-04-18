@@ -25,9 +25,11 @@ public class LoginController {
         ModelAndView response = new ModelAndView();
         response.setViewName("login/login_form");
 
+        //Checks to see if a user is already logged in
         String username = authentication.getAuthentication();
         User user = userDAO.findByEmail(username);
 
+        //If a user is logged in, redirect to that user's home page
         if(user!=null){
             response.addObject(user);
             response.setViewName("redirect:/user/home/");

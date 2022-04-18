@@ -1,5 +1,6 @@
 package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean;
 
+import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.validation.EmailUnique;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,7 +18,8 @@ public class RegisterFormBean {
     private Integer id;
 
     @NotBlank(message = "Email is required")
-    @Email(message = "Email should be valid")
+    @EmailUnique(message = "This email is already in use")
+    @Email(message = "Not a valid email")
     private String email;
 
     @NotBlank(message = "First name is required")

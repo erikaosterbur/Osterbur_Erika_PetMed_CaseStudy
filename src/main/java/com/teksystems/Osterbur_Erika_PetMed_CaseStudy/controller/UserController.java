@@ -58,7 +58,7 @@ public class UserController {
     public ModelAndView registerSubmitUser(@Valid RegisterFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
 
-        if(bindingResult.hasErrors() && form.getPassword() != form.getConfirmPassword()){
+        if(bindingResult.hasErrors() && !Objects.equals(form.getPassword(), form.getConfirmPassword())){
             List<String> errorMessages = new ArrayList<>();
 
             for(ObjectError error : bindingResult.getFieldErrors()){
@@ -94,12 +94,6 @@ public class UserController {
             response.setViewName("register/register");
 
             return response;
-        } else if(form.getPassword() != form.getConfirmPassword()){
-            String notMatch = "Passwords do not match";
-
-            response.addObject("notMatch", notMatch);
-
-            response.setViewName("register/register");
         } else{
             User user = userDAO.findById(form.getId());
 
