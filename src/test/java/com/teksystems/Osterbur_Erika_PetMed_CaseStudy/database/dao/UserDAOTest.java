@@ -58,7 +58,7 @@ public class UserDAOTest {
     @Rollback(value = false)
     public void getById(){
 
-        List<Pet> petList = userDAO.getById(1);
+        List<Pet> petList = userDAO.getById(user.getId());
 
         Assertions.assertThat(user.getPetList()).isEqualTo(petList);
     }

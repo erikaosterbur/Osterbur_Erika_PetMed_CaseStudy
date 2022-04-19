@@ -29,6 +29,9 @@ class VetDAOTest {
     @Autowired
     VetDAO vetDAO;
 
+    @Autowired
+    VetVisitDAO vetVisitDAO;
+
     User user;
     Pet pet;
     Vet vet;
@@ -47,7 +50,13 @@ class VetDAOTest {
     @Rollback(value = false)
     public void saveVetTest(){
 
+        userDAO.save(user);
+
+        petDAO.save(pet);
+
         vetDAO.save(vet);
+
+        vetVisitDAO.save(vetVisit);
 
         Assertions.assertThat(vet.getFirstName()).isEqualTo("Sarah");
     }
