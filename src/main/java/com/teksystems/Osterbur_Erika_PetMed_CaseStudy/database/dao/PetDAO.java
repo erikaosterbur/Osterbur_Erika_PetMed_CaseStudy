@@ -15,12 +15,9 @@ public interface PetDAO extends JpaRepository<Pet, Long> {
 
     Pet findById(@Param("id") Integer id);
 
-    Pet findByName(String name);
-
     @Query(value = "select p.vetVisitList from Pet p where p.id = :id")
     List<VetVisit> getById(@Param("id") Integer id);
 
     List<Pet> findAllByUserId(@Param("id") Integer id);
-
 
 }

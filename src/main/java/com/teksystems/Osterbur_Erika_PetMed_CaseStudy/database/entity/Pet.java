@@ -12,7 +12,9 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
+@Builder
 
 @Entity
 @Table(name = "pets")
@@ -23,19 +25,24 @@ public class Pet {
     @Column(name = "id")
     private Integer id;
 
+    @NonNull
     @Column(name = "name")
     private String name;
 
+    @NonNull
     @Column(name = "type")
     private String type;
 
+    @NonNull
     @Column(name = "breed")
     private String breed;
 
+    @NonNull
     @Column(name = "birthday")
     @Temporal(TemporalType.DATE)
     private Date birthday;
 
+    @NonNull
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
@@ -43,6 +50,5 @@ public class Pet {
 
     @OneToMany(mappedBy="pet")
     private List<VetVisit> vetVisitList = new ArrayList<>();
-
 
 }

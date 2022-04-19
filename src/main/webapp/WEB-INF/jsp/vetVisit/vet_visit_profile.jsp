@@ -30,13 +30,21 @@
     td{
         font-size: 30px;
     }
+    .card{
+        background-image: url("../../../pub/images/washi.webp");
+        background-repeat: repeat;
+    }
 </style>
 <div class="d-flex justify-content-center">
     <div class="card m-5" style="width: 40rem;">
         <div class="card-body">
             <div class="m-5">
-                <table class="table table-striped">
+                <table class="table table-light table-striped">
                     <tbody>
+                    <tr>
+                        <th>Pet:</th>
+                        <td>${vetVisit.pet.name}</td>
+                    </tr>
                     <tr>
                         <th>Date:</th>
                         <td><fmt:formatDate value ="${vetVisit.date}" pattern="MM/dd/yyyy"/></td>
@@ -68,9 +76,6 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn-dark m-3"><a href="/vetvisit/edit/${vetVisit.id}">Edit Vet Visit</a></button>
-                </div>
             </div>
         </div>
     </div>

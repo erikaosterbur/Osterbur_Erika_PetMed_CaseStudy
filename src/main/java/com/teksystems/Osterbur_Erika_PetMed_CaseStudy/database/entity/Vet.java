@@ -11,8 +11,10 @@ import java.util.List;
 @Setter
 @ToString
 @EqualsAndHashCode
+@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 
 @Entity
 @Table(name = "vets")
@@ -23,24 +25,17 @@ public class Vet {
     @Column(name = "id")
     private Integer id;
 
+    @NonNull
     @Column(name = "first_name")
     private String firstName;
 
+    @NonNull
     @Column(name = "last_name")
     private String lastName;
 
+    @NonNull
     @Column(name = "clinic")
     private String clinic;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "create_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
 
     @OneToMany(mappedBy="vet")
     private List<VetVisit> vetVisitList = new ArrayList<>();

@@ -12,7 +12,9 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
+@Builder
 
 @Entity
 @Table(name = "users")
@@ -23,15 +25,19 @@ public class User {
     @Column(name = "id")
     private Integer id;
 
+    @NonNull
     @Column(name = "email")
     private String email;
 
+    @NonNull
     @Column(name = "first_name")
     private String firstName;
 
+    @NonNull
     @Column(name = "last_name")
     private String lastName;
 
+    @NonNull
     @Column(name = "password")
     private String password;
 
