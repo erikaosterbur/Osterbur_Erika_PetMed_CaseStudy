@@ -1,6 +1,7 @@
 package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.assertj.core.api.Assertions;
+
 
 class VetVisitDAOTest {
 

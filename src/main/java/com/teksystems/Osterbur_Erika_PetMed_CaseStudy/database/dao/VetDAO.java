@@ -1,7 +1,5 @@
 package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao;
 
-import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
-import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Vet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.VetVisit;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,7 +18,5 @@ public interface VetDAO extends JpaRepository<Vet, Long> {
 
     @Query(value = "select v.vetVisitList from Vet v where v.id = :id")
     List<VetVisit> getById(@Param("id") Integer id);
-
-    Vet deleteById(@Param("id") Integer id);
 
 }
