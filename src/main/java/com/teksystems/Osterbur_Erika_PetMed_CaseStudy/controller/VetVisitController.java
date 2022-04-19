@@ -12,7 +12,6 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.VetVisitFormBean;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.security.AuthenticationFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -74,16 +73,7 @@ public class VetVisitController {
         VetVisitFormBean form = new VetVisitFormBean();
         response.addObject("form", form);
 
-        String username = authentication.getAuthentication();
-        User user = userDAO.findByEmail(username);
-
-        if(user != null){
-            List<Pet> pets = petDAO.findAllByUserId(user.getId());
-            response.addObject("pets", pets);
-
-            List<Vet> vets = vetDAO.findAll();
-            response.addObject("vets", vets);
-        }
+        getUsername(response);
         return response;
     }
 
@@ -103,16 +93,7 @@ public class VetVisitController {
             response.addObject("errorMessages", errorMessages);
             response.addObject("bindingResult", bindingResult);
 
-            String username = authentication.getAuthentication();
-            User user = userDAO.findByEmail(username);
-
-            if(user != null){
-                List<Pet> pets = petDAO.findAllByUserId(user.getId());
-                response.addObject("pets", pets);
-
-                List<Vet> vets = vetDAO.findAll();
-                response.addObject("vets", vets);
-            }
+            getUsername(response);
 
             response.setViewName("vetVisit/vet_visit_form");
 
@@ -141,6 +122,19 @@ public class VetVisitController {
         response.setViewName("redirect:/pet/" + pet.getId());
         return response;
 
+    }
+
+    private void getUsername(ModelAndView response) {
+        String username = authentication.getAuthentication();
+        User user = userDAO.findByEmail(username);
+
+        if(user != null){
+            List<Pet> pets = petDAO.findAllByUserId(user.getId());
+            response.addObject("pets", pets);
+
+            List<Vet> vets = vetDAO.findAll();
+            response.addObject("vets", vets);
+        }
     }
 
     @Transactional

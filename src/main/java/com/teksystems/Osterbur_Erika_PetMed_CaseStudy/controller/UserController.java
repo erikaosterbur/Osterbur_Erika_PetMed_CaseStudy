@@ -10,7 +10,6 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.security.AuthenticationFac
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,7 +18,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.*;
 
@@ -67,7 +65,6 @@ public class UserController {
             }
 
             String notMatch = "Passwords do not match";
-
             response.addObject("notMatch", notMatch);
 
             response.addObject("form", form);
@@ -121,48 +118,6 @@ public class UserController {
 
     }
 
-    //get working if I have time
-
-//    @GetMapping("/user/edit/{userId}")
-//    public ModelAndView editUser(@PathVariable("userId") Integer userId, BindingResult bindingResult) throws Exception {
-//        ModelAndView response = new ModelAndView();
-//        response.setViewName("user/register");
-//
-//        if(bindingResult.hasErrors()){
-//            List<String> errorMessages = new ArrayList<>();
-//
-//            for(ObjectError error : bindingResult.getAllErrors()){
-//                errorMessages.add(error.getDefaultMessage());
-//                log.info( ((FieldError) error).getField() + " " + error.getDefaultMessage());
-//            }
-//
-//            response.addObject("errorMessages", errorMessages);
-//            response.addObject("bindingResult", bindingResult);
-//
-//            response.setViewName("user/register");
-//
-//            return response;
-//        }
-//
-//        User user = userDAO.findById(userId);
-//        if(user!=null){
-//            RegisterFormBean form = new RegisterFormBean();
-//
-//            form.setId(user.getId());
-//            form.setEmail(user.getEmail());
-//            form.setFirstName(user.getFirstName());
-//            form.setLastName(user.getLastName());
-//            form.setPassword(user.getPassword());
-//            form.setConfirmPassword(user.getPassword());
-//
-//            response.addObject("form", form);
-//        } else{
-//            response.setViewName("/error/404");
-//        }
-//
-//        return response;
-//    }
-//
     @GetMapping("/user/home")
     public ModelAndView userHome() throws Exception {
         ModelAndView response = new ModelAndView();
@@ -226,24 +181,5 @@ public class UserController {
         response.setViewName("redirect:/admin");
         return response;
     }
-
-//    @PreAuthorize("hasAuthority('ADMIN')")
-//    @Transactional
-//    @RequestMapping(value="/admin/vetDelete/{vetId}", method={RequestMethod.POST, RequestMethod.GET})
-//    public ModelAndView deleteVet(@PathVariable("vetId") Integer vetId) throws Exception{
-//        ModelAndView response = new ModelAndView();
-//
-//        Vet vet = vetDAO.findById(vetId);
-//
-//        List<VetVisit> vetVisitList = vet.getVetVisitList();
-//
-//        if(vetVisitList.isEmpty()){
-//            vetDAO.deleteById(vetId);
-//        }
-//
-//        response.setViewName("redirect:/admin");
-//
-//        return response;
-//    }
 
 }

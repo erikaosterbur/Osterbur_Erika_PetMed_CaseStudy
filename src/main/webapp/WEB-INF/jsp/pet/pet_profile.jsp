@@ -170,6 +170,7 @@
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-center">
+                        <button class="btn btn-dark m-3"><a href="/vetVisit/${vetVisit.id}">View Vet Visit</a></button>
                         <button class="btn btn-dark m-3"><a href="/vetVisit/deleteVetVisit/${vetVisit.id}">Delete Vet Visit</a></button>
                     </div>
                 </div>

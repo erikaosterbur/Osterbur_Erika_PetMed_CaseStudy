@@ -16,12 +16,7 @@ public interface UserDAO extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
-    List<User> findByFirstName(String firstName);
-
-    List<User> findByFirstNameAndLastName(String firstName, String lastName);
-
     @Query(value = "select u.petList from User u where u.id = :id")
     List<Pet> getById(@Param("id") Integer id);
-
 
 }

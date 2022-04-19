@@ -98,8 +98,6 @@
     </div>
 </div>
 
-
-
 <script>
     $(document).ready(function() {
         let select = $('#addPetTypeSelect');
@@ -113,6 +111,5 @@
         });
     });
 </script>
-
 
 <jsp:include page="../include/footer.jsp" />
