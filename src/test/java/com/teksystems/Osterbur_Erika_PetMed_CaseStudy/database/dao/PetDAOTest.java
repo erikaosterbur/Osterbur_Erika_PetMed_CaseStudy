@@ -64,6 +64,20 @@ class PetDAOTest {
     @Test
     @Order(3)
     @Rollback(value = false)
+    public void updateByIdTest(){
+
+        Pet pet = petDAO.findById(1);
+
+        pet.setName("Ellie");
+
+        petDAO.save(pet);
+
+        Assertions.assertThat(pet.getName()).isEqualTo("Ellie");
+    }
+
+    @Test
+    @Order(4)
+    @Rollback(value = false)
     public void getByIdTest(){
 
         List<VetVisit> vetVisitList = petDAO.getById(pet.getId());
@@ -72,7 +86,7 @@ class PetDAOTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     @Rollback(value = false)
     public void findAllByUserIdTest(){
 

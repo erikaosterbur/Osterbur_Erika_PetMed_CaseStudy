@@ -8,6 +8,8 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
@@ -61,5 +63,22 @@ public class UserDAOTest {
         List<Pet> petList = userDAO.getById(user.getId());
 
         Assertions.assertThat(user.getPetList()).isEqualTo(petList);
+    }
+
+    @Order(4)
+    @ParameterizedTest
+    @CsvSource({"holly@mail.com,password,Holly,Harper", "pam@mail.com,password,Pam,Popper", "jenny@mail.com,password,Jenny,Jones"})
+    void parameterizedTest(String email, String password, String firstName, String lastName) {
+
+        User expected = new User();
+        expected.setEmail(email);
+        expected.setPassword(password);
+        expected.setFirstName(firstName);
+        expected.setLastName(lastName);
+        userDAO.save(expected);
+
+        User actual = userDAO.findById(expected.getId());
+
+        Assertions.assertThat(expected).isEqualTo(actual);
     }
 }
