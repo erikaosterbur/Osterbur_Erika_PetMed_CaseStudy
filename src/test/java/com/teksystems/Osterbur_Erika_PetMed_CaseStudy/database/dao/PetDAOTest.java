@@ -4,6 +4,7 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Vet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.VetVisit;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import org.assertj.core.api.Assertions;
 
+@Slf4j
 @DataJpaTest
 @ActiveProfiles({"test", "default"})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -57,6 +59,8 @@ class PetDAOTest {
     public void findByIdTest(){
 
         Pet pet = petDAO.findById(1);
+
+        log.info(pet.toString());
 
         Assertions.assertThat(pet.getId()).isEqualTo(1);
     }

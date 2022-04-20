@@ -13,6 +13,28 @@ Create an app where users can easily create and store information they need for 
 * As a user, I want to record every vet visit they have so that I can manage their health history.
 * As an admin, I want to add veterinarians to the database so that users have a list to choose from.
 
+## Tech Stack
+* Languages
+  * Java
+  * CSS
+  * JavaScript
+* Libraries
+  * Bootstrap
+  * Lombok
+  * jQuery
+  * Animate.css
+* Database:
+  * MySQL / MariaDB
+* Tools
+  * Spring
+  * Hibernate
+  * JPA
+  * Maven
+  * Tomcat
+  * JSP
+  * JUnit
+
+
 ## Link to the GitHub Repo
 [Link to the Github Repo](https://github.com/erikaosterbur/Osterbur_Erika_PetMed_CaseStudy.git)
 

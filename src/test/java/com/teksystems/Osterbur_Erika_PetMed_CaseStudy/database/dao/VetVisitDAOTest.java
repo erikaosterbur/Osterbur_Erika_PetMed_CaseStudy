@@ -4,6 +4,7 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Vet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.VetVisit;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.Date;
 import java.util.Optional;
 
-
+@Slf4j
 @DataJpaTest
 @ActiveProfiles({"test", "default"})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
