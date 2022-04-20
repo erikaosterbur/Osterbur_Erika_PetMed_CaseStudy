@@ -1,13 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="../include/header.jsp" />
-<style>
-    h1{
-        color: white;
-        text-align: center;
-        margin: 30px;
-    }
-</style>
 
 <h1>Register your new account</h1>
 

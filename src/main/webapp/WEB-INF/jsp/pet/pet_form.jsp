@@ -2,17 +2,6 @@
 
 <jsp:include page="../include/header.jsp" />
 
-<style>
-    h1{
-        color: white;
-        text-align: center;
-        margin: 30px;
-    }
-    label{
-        color: white;
-    }
-</style>
-
 <c:if test="${empty form.id}">
     <h1>Create New Pet Profile</h1>
 </c:if>

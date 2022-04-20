@@ -4,10 +4,6 @@
 <jsp:include page="../include/header.jsp" />
 
 <style>
-    h1{
-        color: white;
-        text-align: center;
-    }
     img{
         max-width: 30%;
         border: 10px solid white;
@@ -17,13 +13,6 @@
         color: white;
     }
     button a:hover{
-        color: #bd724a;
-    }
-    h4 a{
-        color: black;
-        text-decoration: none;
-    }
-    h4 a:hover{
         color: #bd724a;
     }
     .petProfile > th{
@@ -40,11 +29,8 @@
     td{
         font-size: 20px;
     }
-    .card{
-        background-image: url("../../../pub/images/washi.webp");
-        background-repeat: repeat;
-    }
 </style>
+
 <div class="d-flex justify-content-center m-5">
     <c:choose>
         <c:when test="${pet.type == 'Dog'}">
@@ -177,6 +163,5 @@
             </div>
     </c:forEach>
 </div>
-
 
 <jsp:include page="../include/footer.jsp" />

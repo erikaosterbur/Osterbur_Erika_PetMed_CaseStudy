@@ -3,20 +3,12 @@
 
 <jsp:include page="../include/header.jsp" />
 
-<style>
-    h1{
-        text-align: center;
-        color: white;
-        margin: 30px;
-    }
-</style>
-
 <h1>Current Vet List</h1>
 
 <div class="d-flex justify-content-center flex-wrap">
     <div class="card m-3" style="width: 50rem;">
         <div class="card-body">
-            <table class="table table-striped">
+            <table class="table table-light table-striped">
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">First Name</th>

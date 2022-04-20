@@ -2,9 +2,10 @@
 
 <jsp:include page="../include/header.jsp" />
 
+<h1>Welcome Back!</h1>
 <div id="formContainer">
     <div id="formDiv" class="col-4">
-        <h2>Welcome Back!</h2>
+        <h2>Login</h2>
         <form class="col-12" id="loginForm" action="/login/loginSubmit" method="post">
             <div class="mb-3">
                 <input type="text" class="form-control form-control-lg" id="emailInput" placeholder="email" name="username">
@@ -18,6 +19,5 @@
         </form>
     </div>
 </div>
-
 
 <jsp:include page="../include/footer.jsp" />

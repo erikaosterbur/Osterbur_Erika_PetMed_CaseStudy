@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="../include/header.jsp" />
-
+<h1>Welcome Back!</h1>
 <div id="formContainer">
     <div id="formDiv" class="col-4">
-        <h2>Welcome Back!</h2>
+        <h2>Login</h2>
         <form class="col-12" id="loginForm" action="/login/loginSubmit" method="post">
             <div style="color: white">Incorrect username or password</div>
             <div class="mb-3">
@@ -19,6 +19,5 @@
         </form>
     </div>
 </div>
-
 
 <jsp:include page="../include/footer.jsp" />

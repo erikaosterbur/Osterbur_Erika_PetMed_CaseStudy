@@ -4,37 +4,14 @@
 <jsp:include page="../include/header.jsp" />
 
 <style>
-    h1{
-        color: white;
-        text-align: center;
-        margin: 10px;
-    }
-    h2{
-        color: white;
-        text-align: center;
-        margin: 10px;
-    }
-    h4{
-        font-size: 35px;
-    }
-    button a{
-        text-decoration: none;
-        color: white;
-    }
-    button a:hover{
-        color: #bd724a;
-    }
     th{
         font-size: 30px;
     }
     td{
         font-size: 30px;
     }
-    .card{
-        background-image: url("../../../pub/images/washi.webp");
-        background-repeat: repeat;
-    }
 </style>
+
 <div class="d-flex justify-content-center">
     <div class="card m-5" style="width: 40rem;">
         <div class="card-body">
@@ -80,11 +57,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
 
 
 <jsp:include page="../include/footer.jsp" />

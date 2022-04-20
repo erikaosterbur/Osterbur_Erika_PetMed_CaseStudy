@@ -10,6 +10,7 @@
         }
         h3 a{
             color: black;
+            font-size: 45px;
             text-decoration: none;
         }
         h3 a:hover{
@@ -19,13 +20,15 @@
             max-width:35%;
             border: 10px solid white;
         }
-        .card{
-            background-image: url("../../../pub/images/washi.webp");
-            background-repeat: repeat;
+        th{
+            font-size: 20px;
+        }
+        td{
+            font-size: 20px;
         }
     </style>
 
-    <h1 style="color: rgb(255, 255, 255); margin: 50px" class="d-flex justify-content-center">Welcome, ${user.firstName}!</h1>
+    <h1 style="margin: 50px; font-size: 80px" class="d-flex justify-content-center">Welcome, ${user.firstName}!</h1>
 
     <c:if test="${empty petList}">
         <div>
@@ -97,7 +100,7 @@
                             <img src="../../../pub/images/other.jpg" class="card-img-top" alt="photo of many pets together">
                         </c:otherwise>
                     </c:choose>
-                    <h3 class="card-title p-2" style="text-align: center"><a href="/pet/${pet.id}">${pet.name}</a></h3>
+                    <h3 class="card-title p-2" style="text-align: center"><a href="/pet/${pet.id}" class="stretched-link">${pet.name}</a></h3>
                     <table class="table table-light table-striped">
                         <tbody>
                         <tr>
@@ -118,6 +121,5 @@
             </div>
         </c:forEach>
     </div>
-
 
 <jsp:include page="../include/footer.jsp" />

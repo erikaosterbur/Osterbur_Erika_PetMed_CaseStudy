@@ -1,15 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <jsp:include page="../include/header.jsp" />
-
-<style>
-    h1{
-        color: white;
-        text-align: center;
-        margin: 30px;
-    }
-</style>
 
 <c:if test="${empty form.id}">
     <h1>Create New Vet Visit</h1>
@@ -24,7 +15,7 @@
         <form action="/vetVisit/registerSubmitVetVisit" method="post" id="vetVisitRegister">
             <input type="hidden" name="id" value="${form.id}">
 
-            <label for="addPetSelect" style="color: white">Which pet went to the vet?</label>
+            <label for="addPetSelect">Which pet went to the vet?</label>
             <select class="form-select mb-3" id="addPetSelect" name="petId">
                 <c:if test="${empty form.id}">
                     <option selected></option>
@@ -43,7 +34,7 @@
                 </div>
             </c:forEach>
 
-            <label for="date" style="color: white">Date of Visit</label>
+            <label for="date">Date of Visit</label>
             <input id="date" type="date" name="date" placeholder="Date" class="form-control form-control-lg mb-3" value="${form.date}">
             <c:forEach items="${bindingResult.getFieldErrors('date')}" var="error">
                 <div style="color: red;">
@@ -72,7 +63,7 @@
                 </div>
             </c:forEach>
 
-            <label for="addVetSelect" style="color: white">Which vet did your pet see?</label>
+            <label for="addVetSelect">Which vet did your pet see?</label>
             <select class="form-select mb-3" id="addVetSelect" name="vetId">
                 <c:if test="${empty form.id}">
                     <option selected></option>
@@ -95,7 +86,5 @@
         </form>
     </div>
 </div>
-
-
 
 <jsp:include page="../include/footer.jsp" />

@@ -48,3 +48,15 @@ li a:focus::after {
 .headline h1{
     font-size: 15em;
 }
+.card{
+    background-image: url("../../pub/images/washi.webp");
+    background-repeat: repeat;
+}
+h1{
+    text-align: center;
+    color: white;
+    margin: 30px;
+}
+label{
+    color: white;
+}
