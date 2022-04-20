@@ -41,9 +41,14 @@ public class PetController {
     @RequestMapping(value = "/pet/{petId}", method = RequestMethod.GET)
     public ModelAndView viewPet(@PathVariable("petId") Integer petId) throws Exception {
         ModelAndView response = new ModelAndView();
+
+        //Sets the view to the pet profile jsp
         response.setViewName("pet/pet_profile");
 
+        //Finds pet by id from the URI
         Pet pet = petDAO.findById(petId);
+
+        //If the pet is found, returns the pet and the vet visits associated with that pet
         if(pet!=null){
             List<VetVisit> vetVisitList = petDAO.getById(petId);
 
@@ -54,6 +59,7 @@ public class PetController {
             response.addObject("pet", pet);
             response.addObject("vetVisitList", vetVisitList);
         } else{
+            //If the pet is not found, returns the 404 error page
             response.setViewName("/error/404");
         }
 
@@ -64,8 +70,11 @@ public class PetController {
     @RequestMapping(value = "/pet/register", method = RequestMethod.GET)
     public ModelAndView register() throws Exception {
         ModelAndView response = new ModelAndView();
+
+        //Sets the view to the new pet form
         response.setViewName("pet/pet_form");
 
+        //Create new form bean and add it to the response object
         PetFormBean form = new PetFormBean();
         response.addObject("form", form);
 
@@ -76,6 +85,7 @@ public class PetController {
     public ModelAndView registerSubmitPet(@Valid PetFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
 
+        //After user submits the new pet form, checks to see if there are errors in the form
         if(bindingResult.hasErrors()){
             List<String> errorMessages = new ArrayList<>();
 
@@ -92,26 +102,34 @@ public class PetController {
 
             return response;
         }
+
+        //Checks to see which user is logged in
         String username = authentication.getAuthentication();
         User user = userDAO.findByEmail(username);
 
+        //If the logged-in user is found, then gets the pet id from the form id
         if(user != null){
             Pet pet = petDAO.findById(form.getId());
+            //If the form id is null, that means this is a new pet
             if(pet == null){
                 pet = new Pet();
             }
 
+            //Formats date to send it in the correct format to the database
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date birthday = formatter.parse(form.getBirthday());
 
+            //Sets pet information
             pet.setName(form.getName());
             pet.setType(form.getType());
             pet.setBreed(form.getBreed());
             pet.setBirthday(birthday);
             pet.setUser(user);
 
+            //Saves pet to the database
             petDAO.save(pet);
 
+            //Redirects user after save to the pet's new profile
             response.setViewName("redirect:/pet/" + pet.getId());
         }
         return response;
@@ -126,6 +144,7 @@ public class PetController {
         if(pet!=null){
             PetFormBean form = new PetFormBean();
 
+            //Populates the form with the pet's current info
             form.setId(pet.getId());
             form.setName(pet.getName());
             form.setType(pet.getType());

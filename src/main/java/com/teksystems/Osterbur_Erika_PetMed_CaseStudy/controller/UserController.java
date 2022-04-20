@@ -43,8 +43,11 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register() throws Exception {
         ModelAndView response = new ModelAndView();
+
+        //Sets the view name to the register form
         response.setViewName("register/register");
 
+        //Adds the form bean to the response object
         RegisterFormBean form = new RegisterFormBean();
         response.addObject("form", form);
 
@@ -56,6 +59,7 @@ public class UserController {
     public ModelAndView registerSubmitUser(@Valid RegisterFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
 
+        //Checks if the form has errors and if the passwords match
         if(bindingResult.hasErrors() && !Objects.equals(form.getPassword(), form.getConfirmPassword())){
             List<String> errorMessages = new ArrayList<>();
 
@@ -64,18 +68,22 @@ public class UserController {
                 log.info( ((FieldError) error).getField() + " " + error.getDefaultMessage());
             }
 
+            //If the passwords do not match, send this string back to the response object to display to the user
             String notMatch = "Passwords do not match";
             response.addObject("notMatch", notMatch);
 
             response.addObject("form", form);
 
+            //Sends the errors to the response object
             response.addObject("errorMessages", errorMessages);
             response.addObject("bindingResult", bindingResult);
 
             response.setViewName("register/register");
 
             return response;
-        } else if(bindingResult.hasErrors()){
+        }
+        //If the passwords do match, but the form still has other errors
+        else if(bindingResult.hasErrors()){
             List<String> errorMessages = new ArrayList<>();
 
             for(ObjectError error : bindingResult.getFieldErrors()){

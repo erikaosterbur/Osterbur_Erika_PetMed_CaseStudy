@@ -19,6 +19,7 @@ public class ErrorController {
     @ExceptionHandler(AccessDeniedException.class)
     @RequestMapping(value = "/error/404")
     public String error404(HttpServletRequest request) {
+
         String originalUri = (String) request.getAttribute("javax.servet.forward.request_uri");
         log.error("Requested URL not found : " + request.getMethod() + " " + originalUri);
 

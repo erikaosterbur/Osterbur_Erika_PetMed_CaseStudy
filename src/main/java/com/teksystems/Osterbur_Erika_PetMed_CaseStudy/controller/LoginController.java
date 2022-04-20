@@ -41,11 +41,15 @@ public class LoginController {
     @RequestMapping(value="/login/loginError", method={RequestMethod.POST, RequestMethod.GET})
     public ModelAndView loginError() throws Exception {
         ModelAndView response = new ModelAndView();
+
+        //Sets the view to the login error form which tells the user that they entered an incorrect username or password
         response.setViewName("login/login_error");
 
+        //Checks to see if a user is already logged in
         String username = authentication.getAuthentication();
         User user = userDAO.findByEmail(username);
 
+        //If a user is logged in, redirect to that user's home page
         if(user!=null){
             response.addObject(user);
             response.setViewName("redirect:/user/home/");

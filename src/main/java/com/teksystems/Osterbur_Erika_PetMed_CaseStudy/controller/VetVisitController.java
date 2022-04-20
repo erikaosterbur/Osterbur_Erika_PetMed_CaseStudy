@@ -52,12 +52,16 @@ public class VetVisitController {
         ModelAndView response = new ModelAndView();
         response.setViewName("vetVisit/vet_visit_profile");
 
+        //Finds the vet visit by id from the URI
         VetVisit vetVisit = vetVisitDAO.findById(vetVisitId);
+
+        //If a vet visit is found with that id, adds the vet visit to the response object
         if(vetVisit!=null){
             Vet vet = vetVisitDAO.getById(vetVisitId);
             response.addObject("vetVisit", vetVisit);
             response.addObject("vet", vet);
         } else{
+            //If a vet visit is not found, sends the user to the 404 page
             response.setViewName("/error/404");
         }
 
@@ -81,6 +85,7 @@ public class VetVisitController {
     public ModelAndView registerSubmitVetVisit(@Valid VetVisitFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
 
+        //If the form contains errors, adds the errors to the response object
         if(bindingResult.hasErrors()){
             List<String> errorMessages = new ArrayList<>();
 
@@ -88,6 +93,8 @@ public class VetVisitController {
                 errorMessages.add(error.getDefaultMessage());
                 log.info( ((FieldError) error).getField() + " " + error.getDefaultMessage());
             }
+
+            //Adds the form to the response object
             response.addObject("form", form);
 
             response.addObject("errorMessages", errorMessages);
@@ -100,13 +107,17 @@ public class VetVisitController {
             return response;
         }
 
+        //If a vet visit is not found with the id in the URI, then a new vet visit is created
         VetVisit vetVisit = vetVisitDAO.findById(form.getId());
         if(vetVisit == null){
             vetVisit = new VetVisit();
         }
+
+        //Finds the pet and vet the user chose in the form
         Pet pet = petDAO.findById(form.getPetId());
         Vet vet = vetDAO.findById(form.getVetId());
 
+        //Formats the date so that it can be saved in the correct format in the database
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = formatter.parse(form.getDate());
 
@@ -125,9 +136,13 @@ public class VetVisitController {
     }
 
     private void getUsername(ModelAndView response) {
+
+        //Gets the currently logged-in user
         String username = authentication.getAuthentication();
         User user = userDAO.findByEmail(username);
 
+        //If the user is found, this method returns a list of pets associated with that user and a full list of vets
+        //To be added to the form-select
         if(user != null){
             List<Pet> pets = petDAO.findAllByUserId(user.getId());
             response.addObject("pets", pets);
@@ -142,9 +157,11 @@ public class VetVisitController {
     public ModelAndView deleteVet(@PathVariable("vetVisitId") Integer vetVisitId) throws Exception{
         ModelAndView response = new ModelAndView();
 
+        //Finds the currently logged-in user
         String username = authentication.getAuthentication();
         User user = userDAO.findByEmail(username);
 
+        //Deletes the chosen vet visit
         vetVisitDAO.deleteById(vetVisitId);
 
         response.setViewName("redirect:/user/home/" + user.getId());
