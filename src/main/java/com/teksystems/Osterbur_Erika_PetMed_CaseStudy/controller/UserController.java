@@ -99,7 +99,9 @@ public class UserController {
             response.setViewName("register/register");
 
             return response;
-        } else{
+        }
+        //If the form has no errors, then save the new user to the database
+        else{
             User user = userDAO.findById(form.getId());
 
             if(user == null){
@@ -130,9 +132,11 @@ public class UserController {
     public ModelAndView userHome() throws Exception {
         ModelAndView response = new ModelAndView();
 
+        //Gets logged-in user
         String username = authentication.getAuthentication();
         User user = userDAO.findByEmail(username);
 
+        //If the user is found, sends the user to their homepage
         if(user != null){
             response.addObject("user", user);
             response.setViewName("redirect:/user/home/" + user.getId());
@@ -146,6 +150,7 @@ public class UserController {
         ModelAndView response = new ModelAndView();
         response.setViewName("user/home");
 
+        //Gets the user from the user id in the URI and gets all of the pets that the user has saved
         User user = userDAO.findById(userId);
         if(user!=null){
             List<Pet> petList = userDAO.getById(userId);
@@ -162,11 +167,13 @@ public class UserController {
     @GetMapping("/admin")
     public ModelAndView admin() throws Exception {
         ModelAndView response = new ModelAndView();
+        //This is the admin page where they can see the vets in the database and add a vet to the database
         response.setViewName("admin/admin");
 
         VetFormBean form = new VetFormBean();
         response.addObject("form", form);
 
+        //Finds all the vets in the database
         List<Vet> vets = vetDAO.findAll();
 
         response.addObject("vets", vets);
@@ -178,6 +185,7 @@ public class UserController {
     public ModelAndView registerSubmitVet(VetFormBean form) throws Exception {
         ModelAndView response = new ModelAndView();
 
+        //This method saves the new vet to the database
         Vet vet = new Vet();
 
         vet.setFirstName(form.getFirstName());
