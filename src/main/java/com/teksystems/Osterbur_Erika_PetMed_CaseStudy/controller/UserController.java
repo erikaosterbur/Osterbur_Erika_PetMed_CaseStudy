@@ -153,7 +153,7 @@ public class UserController {
         //Gets the user from the user id in the URI and gets all of the pets that the user has saved
         User user = userDAO.findById(userId);
         if(user!=null){
-            List<Pet> petList = userDAO.getById(userId);
+            List<Pet> petList = user.getPetList();
             response.addObject("user", user);
             response.addObject("petList", petList);
         } else{

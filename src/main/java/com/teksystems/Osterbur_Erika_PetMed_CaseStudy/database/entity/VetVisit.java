@@ -55,5 +55,4 @@ public class VetVisit {
     @JoinColumn(name = "vet_id", nullable = false)
     private Vet vet;
 
-
 }

@@ -32,53 +32,56 @@ class VetVisitDAOTest {
     @Autowired
     VetVisitDAO vetVisitDAO;
 
-    User user;
-    Pet pet;
-    Vet vet;
-    VetVisit vetVisit;
+    static User user;
+    static Pet pet;
+    static Vet vet;
+    static VetVisit vetVisit;
 
-    @BeforeEach
-    void name() {
+    @BeforeAll
+    static void name() {
         user = new User("erika@mail.com", "Erika", "Osterbur", "password");
         pet = new Pet("Ginny", "Dog", "Border Collie", new Date(), user);
         vet = new Vet("Sarah", "Nelson", "Tempe Animal Hospital");
         vetVisit = new VetVisit(new Date(), "Rabies", "General wellness visit", (float) 48.2, pet, vet);
+
     }
 
     @Test
     @Order(1)
     @Rollback(value = false)
     public void saveVetVisitTest(){
-
         userDAO.save(user);
-
         petDAO.save(pet);
-
         vetDAO.save(vet);
-
         vetVisitDAO.save(vetVisit);
 
         Assertions.assertThat(vetVisit.getVet()).isEqualTo(vet);
+
     }
 
     @Test
     @Order(2)
     @Rollback(value = false)
     public void findByIdTest(){
+        userDAO.save(user);
+        petDAO.save(pet);
+        vetDAO.save(vet);
+        vetVisitDAO.save(vetVisit);
 
-        VetVisit vetVisit = vetVisitDAO.findById(1);
+        VetVisit vetVisit1 = vetVisitDAO.findById(vetVisit.getId());
 
-        Assertions.assertThat(vetVisit.getId()).isEqualTo(1);
+        Assertions.assertThat(vetVisit1.getNotes()).isEqualTo(vetVisit.getNotes());
 
     }
 
     @Test
     @Order(3)
     @Rollback(value = false)
-    public void getByIdTest(){
-
-        VetVisit vetVisit = vetVisitDAO.findById(1);
-        Vet vet = vetVisitDAO.getById(vetVisit.getId());
+    public void getVetTest(){
+        userDAO.save(user);
+        petDAO.save(pet);
+        vetDAO.save(vet);
+        vetVisitDAO.save(vetVisit);
 
         Assertions.assertThat(vetVisit.getVet()).isEqualTo(vet);
     }
@@ -86,7 +89,24 @@ class VetVisitDAOTest {
     @Test
     @Order(4)
     @Rollback(value = false)
+    public void getPetTest(){
+        userDAO.save(user);
+        petDAO.save(pet);
+        vetDAO.save(vet);
+        vetVisitDAO.save(vetVisit);
+
+        Assertions.assertThat(vetVisit.getPet()).isEqualTo(pet);
+    }
+
+    @Test
+    @Order(5)
+    @Rollback(value = false)
     public void deleteByIdTest(){
+        userDAO.save(user);
+        petDAO.save(pet);
+        vetDAO.save(vet);
+        vetVisitDAO.save(vetVisit);
+
         vetVisitDAO.deleteById(vetVisit.getId());
 
         Optional<VetVisit> optionalVetVisit = Optional.ofNullable(vetVisitDAO.findById(vetVisit.getId()));

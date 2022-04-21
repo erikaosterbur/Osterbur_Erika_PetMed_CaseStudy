@@ -37,7 +37,7 @@ public class Vet {
     @Column(name = "clinic")
     private String clinic;
 
-    @OneToMany(mappedBy="vet")
+    @OneToMany(mappedBy="vet", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<VetVisit> vetVisitList = new ArrayList<>();
 
 }

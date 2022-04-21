@@ -50,7 +50,7 @@ public class PetController {
 
         //If the pet is found, returns the pet and the vet visits associated with that pet
         if(pet!=null){
-            List<VetVisit> vetVisitList = petDAO.getById(petId);
+            List<VetVisit> vetVisitList = pet.getVetVisitList();
 
             vetVisitList.sort((o1, o2)
                     -> o2.getDate().compareTo(

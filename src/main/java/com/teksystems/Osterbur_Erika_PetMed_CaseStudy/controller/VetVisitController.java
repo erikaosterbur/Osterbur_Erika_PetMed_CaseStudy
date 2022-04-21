@@ -57,7 +57,7 @@ public class VetVisitController {
 
         //If a vet visit is found with that id, adds the vet visit to the response object
         if(vetVisit!=null){
-            Vet vet = vetVisitDAO.getById(vetVisitId);
+            Vet vet = vetVisit.getVet();
             response.addObject("vetVisit", vetVisit);
             response.addObject("vet", vet);
         } else{
@@ -144,7 +144,7 @@ public class VetVisitController {
         //If the user is found, this method returns a list of pets associated with that user and a full list of vets
         //To be added to the form-select
         if(user != null){
-            List<Pet> pets = petDAO.findAllByUserId(user.getId());
+            List<Pet> pets = user.getPetList();
             response.addObject("pets", pets);
 
             List<Vet> vets = vetDAO.findAll();

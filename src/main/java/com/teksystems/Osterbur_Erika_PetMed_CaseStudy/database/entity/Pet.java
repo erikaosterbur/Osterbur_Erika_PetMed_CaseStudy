@@ -42,13 +42,13 @@ public class Pet {
     @Temporal(TemporalType.DATE)
     private Date birthday;
 
-    @NonNull
-    @ToString.Exclude
-    @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
-    private User user;
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy="pet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<VetVisit> vetVisitList;
 
-    @OneToMany(mappedBy="pet")
-    private List<VetVisit> vetVisitList = new ArrayList<>();
+    @NonNull
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

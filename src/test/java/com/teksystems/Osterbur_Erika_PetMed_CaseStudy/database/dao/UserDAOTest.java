@@ -2,12 +2,10 @@ package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao;
 
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +14,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Date;
-import java.util.List;
 
+@Slf4j
 @DataJpaTest
 @ActiveProfiles({"test", "default"})
 @TestMethodOrder(OrderAnnotation.class)
@@ -26,44 +24,39 @@ public class UserDAOTest {
     @Autowired
     private UserDAO userDAO;
 
-    User user;
-    Pet pet;
+    @Autowired
+    private PetDAO petDAO;
 
-    @BeforeEach
-    void name() {
+    static User user;
+    static Pet pet;
+
+    @BeforeAll
+    static void init() {
         user = new User("erika@mail.com", "Erika", "Osterbur", "password");
         pet = new Pet("Ginny", "Dog", "Border Collie", new Date(), user);
     }
 
     @Test
-    @Order(1)
     @Rollback(value = false)
-    public void saveUserTest() {
-
+    @Order(1)
+    void saveUserTest() {
         userDAO.save(user);
+        petDAO.save(pet);
 
         Assertions.assertThat(user.getEmail()).isEqualTo("erika@mail.com");
     }
 
     @Test
+    @Rollback(value = false)
     @Order(2)
-    @Rollback(value = false)
-    public void findByIdTest(){
+    void findByIdTest(){
+        userDAO.save(user);
+        petDAO.save(pet);
+        User expected = userDAO.findById(userDAO.findByEmail(user.getEmail()).getId());
 
-        User user = userDAO.findById(1);
-
-        Assertions.assertThat(user.getId()).isEqualTo(1);
+        Assertions.assertThat(expected.getFirstName()).isEqualTo("Erika");
     }
 
-    @Test
-    @Order(3)
-    @Rollback(value = false)
-    public void getById(){
-
-        List<Pet> petList = userDAO.getById(user.getId());
-
-        Assertions.assertThat(user.getPetList()).isEqualTo(petList);
-    }
 
     @Order(4)
     @ParameterizedTest
