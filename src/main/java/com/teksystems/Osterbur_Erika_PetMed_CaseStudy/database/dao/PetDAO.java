@@ -10,4 +10,6 @@ public interface PetDAO extends JpaRepository<Pet, Long> {
 
     Pet findById(@Param("id") Integer id);
 
+    void deleteById(@Param("id") Integer id);
+
 }

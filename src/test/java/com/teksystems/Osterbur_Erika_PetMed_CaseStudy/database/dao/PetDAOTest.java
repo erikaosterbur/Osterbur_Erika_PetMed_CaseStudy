@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
 
@@ -45,8 +46,6 @@ class PetDAOTest {
     static void name() {
         user = new User("erika@mail.com", "Erika", "Osterbur", "password");
         pet = new Pet("Ginny", "Dog", "Border Collie", new Date(), user);
-        vet = new Vet("Sarah", "Nelson", "Tempe Animal Hospital");
-        vetVisit = new VetVisit(new Date(), "Rabies", "General wellness visit", (float) 48.2, pet, vet);
     }
 
     @Test
@@ -89,6 +88,25 @@ class PetDAOTest {
 
         Assertions.assertThat(pet.getUser()).isEqualTo(user);
 
+    }
+
+    @Test
+    @Order(5)
+    @Rollback(value = false)
+    public void deletePetTest(){
+
+        petDAO.save(pet);
+
+        petDAO.deleteById(pet.getId());
+
+        Optional<Pet> optionalPet = Optional.ofNullable(petDAO.findById(pet.getId()));
+
+        Pet tempPet = null;
+        if (optionalPet.isPresent()) {
+            tempPet = optionalPet.get();
+        }
+
+        Assertions.assertThat(tempPet).isNull();
     }
 
 }

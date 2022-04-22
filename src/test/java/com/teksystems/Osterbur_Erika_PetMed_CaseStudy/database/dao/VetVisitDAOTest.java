@@ -101,7 +101,7 @@ class VetVisitDAOTest {
     @Test
     @Order(5)
     @Rollback(value = false)
-    public void deleteByIdTest(){
+    public void deleteVetVisitTest(){
         userDAO.save(user);
         petDAO.save(pet);
         vetDAO.save(vet);

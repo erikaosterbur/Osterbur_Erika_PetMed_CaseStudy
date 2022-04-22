@@ -14,6 +14,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Slf4j
 @DataJpaTest
@@ -58,7 +59,7 @@ public class UserDAOTest {
     }
 
 
-    @Order(4)
+    @Order(3)
     @ParameterizedTest
     @CsvSource({"holly@mail.com,password,Holly,Harper", "pam@mail.com,password,Pam,Popper", "jenny@mail.com,password,Jenny,Jones"})
     void parameterizedTest(String email, String password, String firstName, String lastName) {
@@ -74,4 +75,5 @@ public class UserDAOTest {
 
         Assertions.assertThat(expected).isEqualTo(actual);
     }
+
 }
