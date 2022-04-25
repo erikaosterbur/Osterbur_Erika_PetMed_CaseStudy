@@ -35,8 +35,23 @@
         <h2>Add New Vet</h2>
         <form action="/admin/vetRegisterSubmit" method="post" id="vetRegister">
             <input type="text" name="firstName" placeholder="Enter vet's first name" class="form-control form-control-lg mb-3">
+            <c:forEach items="${bindingResult.getFieldErrors('firstName')}" var="error">
+                <div style="color: red;">
+                        ${error.getDefaultMessage()}
+                </div>
+            </c:forEach>
             <input type="text" name="lastName" placeholder="Enter vet's last name" class="form-control form-control-lg mb-3">
+            <c:forEach items="${bindingResult.getFieldErrors('lastName')}" var="error">
+                <div style="color: red;">
+                        ${error.getDefaultMessage()}
+                </div>
+            </c:forEach>
             <input type="text" name="clinic" placeholder="Enter vet's primary clinic name" class="form-control form-control-lg mb-3">
+            <c:forEach items="${bindingResult.getFieldErrors('clinic')}" var="error">
+                <div style="color: red;">
+                        ${error.getDefaultMessage()}
+                </div>
+            </c:forEach>
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-dark">Save Vet</button>
             </div>

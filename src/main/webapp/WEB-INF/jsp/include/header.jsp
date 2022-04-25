@@ -50,7 +50,7 @@
         </li>
         <li>
             <sec:authorize access="hasAuthority('ADMIN')">
-                <a href="/admin">New Vet</a>
+                <a href="/admin">Admin</a>
             </sec:authorize>
         </li>
         <li>

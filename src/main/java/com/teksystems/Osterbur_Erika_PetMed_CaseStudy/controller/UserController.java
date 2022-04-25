@@ -5,11 +5,10 @@ import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.UserRoleDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao.VetDAO;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.*;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.RegisterFormBean;
-import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.formbean.VetFormBean;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.security.AuthenticationFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -60,7 +59,7 @@ public class UserController {
         ModelAndView response = new ModelAndView();
 
         //Checks if the form has errors and if the passwords match
-        if(bindingResult.hasErrors() && !Objects.equals(form.getPassword(), form.getConfirmPassword())){
+        if(bindingResult.hasErrors() && form.getPassword() != form.getConfirmPassword()){
             List<String> errorMessages = new ArrayList<>();
 
             for(ObjectError error : bindingResult.getFieldErrors()){
@@ -160,41 +159,6 @@ public class UserController {
             response.setViewName("/error/404");
         }
 
-        return response;
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/admin")
-    public ModelAndView admin() throws Exception {
-        ModelAndView response = new ModelAndView();
-        //This is the admin page where they can see the vets in the database and add a vet to the database
-        response.setViewName("admin/admin");
-
-        VetFormBean form = new VetFormBean();
-        response.addObject("form", form);
-
-        //Finds all the vets in the database
-        List<Vet> vets = vetDAO.findAll();
-
-        response.addObject("vets", vets);
-        return response;
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "admin/vetRegisterSubmit", method = RequestMethod.POST)
-    public ModelAndView registerSubmitVet(VetFormBean form) throws Exception {
-        ModelAndView response = new ModelAndView();
-
-        //This method saves the new vet to the database
-        Vet vet = new Vet();
-
-        vet.setFirstName(form.getFirstName());
-        vet.setLastName(form.getLastName());
-        vet.setClinic(form.getClinic());
-
-        vetDAO.save(vet);
-
-        response.setViewName("redirect:/admin");
         return response;
     }
 

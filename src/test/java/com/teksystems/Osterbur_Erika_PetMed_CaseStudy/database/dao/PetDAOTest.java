@@ -2,8 +2,6 @@ package com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.dao;
 
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Pet;
 import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.User;
-import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.Vet;
-import com.teksystems.Osterbur_Erika_PetMed_CaseStudy.database.entity.VetVisit;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
@@ -12,9 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
@@ -31,16 +27,8 @@ class PetDAOTest {
     @Autowired
     UserDAO userDAO;
 
-    @Autowired
-    VetDAO vetDAO;
-
-    @Autowired
-    VetVisitDAO vetVisitDAO;
-
     static User user;
     static Pet pet;
-    static Vet vet;
-    static VetVisit vetVisit;
 
     @BeforeAll
     static void name() {
