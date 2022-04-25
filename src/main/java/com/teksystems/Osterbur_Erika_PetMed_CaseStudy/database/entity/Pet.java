@@ -43,11 +43,11 @@ public class Pet {
     private Date birthday;
 
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy="pet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="pet", fetch = FetchType.LAZY)
     private List<VetVisit> vetVisitList;
 
     @NonNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

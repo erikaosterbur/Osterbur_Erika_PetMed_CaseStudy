@@ -45,7 +45,7 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private List<Pet> petList;
 
 }

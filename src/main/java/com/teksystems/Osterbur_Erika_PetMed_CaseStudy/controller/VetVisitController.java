@@ -154,15 +154,17 @@ public class VetVisitController {
 
     @Transactional
     @RequestMapping(value="/vetVisit/deleteVetVisit/{vetVisitId}", method={RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView deleteVet(@PathVariable("vetVisitId") Integer vetVisitId) throws Exception{
+    public ModelAndView deleteVetVisit(@PathVariable("vetVisitId") Integer vetVisitId) throws Exception{
         ModelAndView response = new ModelAndView();
 
         //Finds the currently logged-in user
         String username = authentication.getAuthentication();
         User user = userDAO.findByEmail(username);
 
+        VetVisit vetVisit = vetVisitDAO.findById(vetVisitId);
+
         //Deletes the chosen vet visit
-        vetVisitDAO.deleteById(vetVisitId);
+        vetVisitDAO.delete(vetVisit);
 
         response.setViewName("redirect:/user/home/" + user.getId());
 
