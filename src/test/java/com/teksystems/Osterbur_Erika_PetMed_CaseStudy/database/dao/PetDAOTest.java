@@ -40,6 +40,7 @@ class PetDAOTest {
     @Order(1)
     @Rollback(value = false)
     public void savePetTest(){
+        userDAO.save(user);
         petDAO.save(pet);
         Assertions.assertThat(pet.getName()).isEqualTo("Ginny");
     }
@@ -48,6 +49,7 @@ class PetDAOTest {
     @Order(2)
     @Rollback(value = false)
     public void findByIdTest(){
+        userDAO.save(user);
         petDAO.save(pet);
         Pet expected = petDAO.findById(pet.getId());
         Assertions.assertThat(expected.getName()).isEqualTo(pet.getName());
@@ -57,6 +59,8 @@ class PetDAOTest {
     @Order(3)
     @Rollback(value = false)
     public void updateByIdTest(){
+        userDAO.save(user);
+        petDAO.save(pet);
 
         Pet pet1 = petDAO.findById(pet.getId());
 
@@ -71,7 +75,7 @@ class PetDAOTest {
     @Order(4)
     @Rollback(value = false)
     public void getUserTest(){
-
+        userDAO.save(user);
         petDAO.save(pet);
 
         Assertions.assertThat(pet.getUser()).isEqualTo(user);
@@ -82,7 +86,7 @@ class PetDAOTest {
     @Order(5)
     @Rollback(value = false)
     public void deletePetTest(){
-
+        userDAO.save(user);
         petDAO.save(pet);
 
         petDAO.deleteById(pet.getId());
